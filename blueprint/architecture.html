@@ -30,7 +30,7 @@
       <header class="page-header">
         <p class="eyebrow">System Architecture</p>
         <h1>전체 시스템 구조</h1>
-        <p class="lead">데이터 수집, 모델 분석, DB 저장, Flask 웹 서비스, LLM 설명 기능이 연결되는 구조입니다.</p>
+        <p class="lead">MVP 기준으로 데이터 수집, 감성분석, DB 저장, 간단한 예측, Flask 웹 서비스, LLM 설명 기능이 연결되는 구조입니다.</p>
       </header>
 
       <section class="section">
@@ -43,8 +43,8 @@ flowchart LR
   C --> D["감성 점수"]
   E["주가 데이터"] --> F["특성 결합"]
   D --> F
-  F --> G["회귀모델"]
-  G --> H["예측 결과"]
+  F --> G["간단한 회귀모델 또는 모의 예측"]
+  G --> H["예측 참고값"]
   D --> I[("MySQL DB")]
   E --> I
   H --> I
@@ -68,7 +68,7 @@ flowchart LR
           <div class="lane">
             <h3>ML Layer</h3>
             <div class="step"><strong>Sentiment Model</strong><small>뉴스 텍스트를 감성 점수로 변환</small></div>
-            <div class="step"><strong>Regression Model</strong><small>감성점수와 가격 특성으로 예측 참고값 생성</small></div>
+            <div class="step"><strong>Simple Prediction</strong><small>감성점수와 기본 가격 정보로 예측 참고값 생성</small></div>
             <div class="step"><strong>Model Storage</strong><small>모델, 토크나이저, 스케일러 파일 관리</small></div>
           </div>
           <div class="lane">

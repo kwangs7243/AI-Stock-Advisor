@@ -30,7 +30,7 @@
       <header class="page-header">
         <p class="eyebrow">LLM Explanation</p>
         <h1>LLM 설명 기능</h1>
-        <p class="lead">모델 결과와 뉴스 근거를 사용자가 이해하기 쉬운 문장으로 바꾸는 보조 기능입니다.</p>
+        <p class="lead">MVP에서는 감성 흐름과 간단한 예측 참고값을 사용자가 이해하기 쉬운 문장으로 바꾸는 보조 기능입니다.</p>
       </header>
 
       <section class="section">
@@ -42,7 +42,7 @@
           </div>
           <div class="summary-item">
             <strong>질의응답</strong>
-            <span>사용자의 종목 관련 질문에 저장된 근거 데이터를 기반으로 응답합니다.</span>
+            <span>MVP에서는 복잡한 RAG보다 저장된 뉴스와 분석 결과를 바탕으로 간단한 설명을 제공합니다.</span>
           </div>
           <div class="summary-item">
             <strong>주의 문구</strong>
@@ -58,8 +58,12 @@
           <li>뉴스별 감성 라벨과 점수</li>
           <li>기간별 종합 감성 점수</li>
           <li>주가 등락률과 거래량 변화</li>
-          <li>회귀모델 예측 참고값과 사용된 주요 특성</li>
+          <li>간단한 예측 참고값과 사용된 기본 데이터</li>
         </ul>
+        <div class="callout gold">
+          <strong>향후 확장</strong>
+          <p>고도화된 RAG 시스템, 벡터DB 기반 문서 검색, 장기 대화 기록 활용은 MVP 이후 확장 기능으로 분리합니다.</p>
+        </div>
       </section>
     </main>
   </div>

@@ -30,7 +30,7 @@
       <header class="page-header">
         <p class="eyebrow">ML Pipeline</p>
         <h1>모델 파이프라인</h1>
-        <p class="lead">뉴스 텍스트를 감성점수로 바꾸고, 주가 데이터와 결합해 예측 참고 정보를 생성하는 흐름입니다.</p>
+        <p class="lead">1개월 MVP에서는 뉴스 감성분석, 기본 특성 생성, 간단한 회귀모델 또는 모의 예측, 결과 분석 흐름만 구현합니다.</p>
       </header>
 
       <section class="section">
@@ -49,16 +49,16 @@
             <div class="step"><strong>저장</strong><small>뉴스별 감성 결과를 DB에 저장</small></div>
           </div>
           <div class="lane">
-            <h3>3. 예측 모델</h3>
-            <div class="step"><strong>특성 생성</strong><small>감성점수, 등락률, 거래량, 이동평균</small></div>
-            <div class="step"><strong>모델 후보</strong><small>LinearRegression, RandomForest, XGBoost</small></div>
-            <div class="step"><strong>결과 제공</strong><small>예측값과 사용 특성을 저장</small></div>
+            <h3>3. 예측 및 분석</h3>
+            <div class="step"><strong>기본 특성 생성</strong><small>감성점수와 최소한의 주가 정보 결합</small></div>
+            <div class="step"><strong>간단한 모델</strong><small>회귀모델 또는 모의 예측값 생성</small></div>
+            <div class="step"><strong>결과 분석</strong><small>예측값과 실제 결과의 차이 해석</small></div>
           </div>
         </div>
       </section>
 
       <section class="section">
-        <h2>저장 파일 후보</h2>
+        <h2>MVP 저장 파일 후보</h2>
         <div class="table-wrap">
           <table>
             <thead>
@@ -66,12 +66,20 @@
             </thead>
             <tbody>
               <tr><td>sentiment_model.pkl 또는 .h5</td><td>뉴스 감성분석 모델</td></tr>
-              <tr><td>regression_model.pkl</td><td>주가 예측 참고값 생성 모델</td></tr>
+              <tr><td>regression_model.pkl</td><td>간단한 주가 예측 참고값 생성 모델</td></tr>
               <tr><td>tokenizer</td><td>텍스트 토큰화에 사용하는 자원</td></tr>
-              <tr><td>scaler.pkl</td><td>수치형 특성 스케일링 도구</td></tr>
+              <tr><td>scaler.pkl</td><td>필요한 경우에만 사용하는 기본 스케일링 도구</td></tr>
             </tbody>
           </table>
         </div>
+      </section>
+
+      <section class="section">
+        <h2>향후 연구 방향</h2>
+        <p>
+          다양한 Feature Engineering, 여러 Baseline 모델 비교, 시장지수·수급·환율·금리 등 외부 데이터 결합은
+          MVP 이후 성능 개선을 위해 검토할 확장 연구로 분리합니다.
+        </p>
       </section>
     </main>
   </div>
