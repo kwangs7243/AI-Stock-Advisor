@@ -14,4 +14,4 @@ https://<github-id>.github.io/<repository-name>/blueprint/
 
 로컬에서는 [blueprint/index.html](blueprint/index.html)을 브라우저로 열면 됩니다.
 
-주요 연구 방향은 [blueprint/research_direction.html](blueprint/research_direction.html)에 정리되어 있습니다.
+주요 연구 방향은 [blueprint/research_direction.html](blueprint/research_direction.html)에 정리되어 있으며, 문서 사이트 메뉴는 팀 발표와 검토에 맞춰 한글로 구성되어 있습니다.
