@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research Direction | AI Stock Advisor Blueprint</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <p class="brand-title">AI Stock Advisor Blueprint</p>
+        <p class="brand-subtitle">뉴스 감성분석 기반 연구형 주식 어드바이저</p>
+      </div>
+      <nav class="nav" aria-label="문서 메뉴">
+        <a href="index.html">Home</a>
+        <a href="research_direction.html">Research Direction</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="requirements.html">Requirements</a>
+        <a href="database.html">Database</a>
+        <a href="model_pipeline.html">Model Pipeline</a>
+        <a href="llm.html">LLM</a>
+        <a href="api.html">API</a>
+        <a href="schedule.html">Schedule</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <header class="page-header">
+        <p class="eyebrow">Research Direction</p>
+        <h1>연구형 프로젝트 방향성</h1>
+        <p class="lead">
+          본 프로젝트는 주가를 정확히 맞히는 상용 투자 서비스가 아니라, 뉴스 감성분석과 다양한 특성이
+          주가 예측에 어느 정도 도움이 되는지 실험하고 예측 실패 원인을 분석하는 학습·연구 목적의 프로젝트입니다.
+        </p>
+      </header>
+
+      <section class="section">
+        <h2>핵심 연구 질문</h2>
+        <div class="quote">
+          뉴스 기반 주가 예측은 어디까지 가능한가?<br>
+          그리고 어떤 특성이 모델의 예측 성능을 향상시키는가?
+        </div>
+        <p>
+          단순히 뉴스의 긍정/부정을 분류하는 것에서 끝나지 않고, 뉴스 감성점수와 주가 관련 특성을
+          결합했을 때 예측 성능이 어떻게 달라지는지 확인합니다. 또한 예측이 틀렸을 때 어떤 정보가
+          부족했는지 분석하여 모델 개선 방향을 도출합니다.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>프로젝트 관점 전환</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>기존 관점</th>
+                <th>연구형 관점</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>AI로 주가를 맞히는 서비스</td><td>뉴스와 특성이 예측에 얼마나 기여하는지 실험하는 프로젝트</td></tr>
+              <tr><td>예측 정확도만 강조</td><td>예측 실패 원인과 개선 방향까지 분석</td></tr>
+              <tr><td>사용자에게 투자 판단 제공</td><td>사용자가 데이터와 근거를 확인하도록 돕는 참고 서비스</td></tr>
+              <tr><td>모델 결과를 정답처럼 제공</td><td>모델 결과의 한계와 불확실성을 함께 제공</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>중요한 전제</h2>
+        <div class="callout gold">
+          <strong>뉴스 감성만으로 시장을 설명할 수는 없습니다.</strong>
+          <p>
+            주식시장은 실적, 공시, 금리, 환율, 외국인·기관 수급, 시장지수, 업종 흐름, 돌발 이슈 등
+            다양한 요인이 동시에 영향을 줍니다.
+          </p>
+        </div>
+        <p>
+          따라서 본 프로젝트의 예측 결과는 투자 권유가 아니라, 모델이 어떤 데이터를 근거로 판단했는지
+          확인하기 위한 참고용 분석 결과로 제공합니다.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>실험 흐름</h2>
+        <div class="research-steps">
+          <div class="step"><strong>1</strong><span>뉴스 수집</span></div>
+          <div class="step"><strong>2</strong><span>감성분석</span></div>
+          <div class="step"><strong>3</strong><span>특성 생성</span></div>
+          <div class="step"><strong>4</strong><span>회귀모델 학습</span></div>
+          <div class="step"><strong>5</strong><span>실제 결과 비교</span></div>
+          <div class="step"><strong>6</strong><span>실패 원인 분석</span></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>특성 세트 단계별 실험</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>단계</th>
+                <th>사용 특성</th>
+                <th>예상 목적</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Level 1</td><td>긍정 뉴스 비율, 부정 뉴스 비율, 평균 감성점수</td><td>뉴스 감성만으로 예측 가능한지 확인하는 기준선</td></tr>
+              <tr><td>Level 2</td><td>최근 3일/7일 감성 평균, 감성 변화량, 뉴스 개수</td><td>감성의 흐름과 변화가 예측에 도움이 되는지 확인</td></tr>
+              <tr><td>Level 3</td><td>전일 등락률, 거래량, 이동평균, 변동성</td><td>기본 주가 특성을 추가했을 때 성능 변화 확인</td></tr>
+              <tr><td>Level 4</td><td>시장지수, 업종지수, 외국인/기관 수급, 환율, 금리 등</td><td>외부 시장 요인을 추가했을 때 신뢰성이 높아지는지 확인</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>평가와 실패 분석</h2>
+        <div class="two-col">
+          <div>
+            <h3>평가 지표 후보</h3>
+            <ul>
+              <li><strong>MAE</strong>: 예측값과 실제값의 평균 절대 오차</li>
+              <li><strong>RMSE</strong>: 큰 오차에 더 민감한 회귀 평가 지표</li>
+              <li><strong>R² Score</strong>: 모델이 변동성을 얼마나 설명하는지 확인</li>
+              <li><strong>방향성 정확도</strong>: 상승/하락 방향을 맞췄는지 확인</li>
+              <li><strong>Baseline 비교</strong>: 단순 기준 모델보다 나은지 확인</li>
+            </ul>
+          </div>
+          <div>
+            <h3>실패 분석 항목</h3>
+            <ul>
+              <li>뉴스 감성은 긍정적이었지만 실제 주가는 하락했는가?</li>
+              <li>시장 전체 하락이나 업종 악재가 있었는가?</li>
+              <li>실적 발표, 공시, 금리, 환율 같은 정보가 누락되었는가?</li>
+              <li>뉴스가 이미 주가에 선반영되었는가?</li>
+              <li>감성분석 모델이 금융 문맥을 잘못 해석했는가?</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>추가 데이터 후보</h2>
+        <p>
+          실험 결과 예측력이 낮게 나오더라도, 어떤 데이터가 부족했는지 분석하면 향후 고도화 방향을
+          명확하게 제시할 수 있습니다. 이 과정 자체가 프로젝트의 중요한 학습 성과가 됩니다.
+        </p>
+        <div>
+          <span class="tag">기업 실적</span>
+          <span class="tag">공시 데이터</span>
+          <span class="tag">금리</span>
+          <span class="tag">환율</span>
+          <span class="tag">외국인 수급</span>
+          <span class="tag">기관 수급</span>
+          <span class="tag">시장지수</span>
+          <span class="tag">업종지수</span>
+          <span class="tag">SNS 감성</span>
+          <span class="tag">검색량</span>
+          <span class="tag">거래대금</span>
+          <span class="tag">변동성 지표</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>발표에서 강조할 메시지</h2>
+        <div class="quote">
+          본 프로젝트의 목표는 주가를 완벽히 예측하는 것이 아니라, 뉴스 감성분석과 다양한 특성이
+          예측 모델에 어떤 영향을 주는지 실험하고, 예측 실패 사례를 분석하여 더 신뢰성 있는 모델을
+          만들기 위한 개선 방향을 찾는 것입니다.
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>결론</h2>
+        <p>
+          이 프로젝트는 서비스 구현과 모델 학습을 함께 수행하지만, 최종적으로는 <strong>모델이 왜 맞았고,
+          왜 틀렸는가</strong>를 분석하는 연구형 프로젝트로 확장할 수 있습니다. 따라서 예측 정확도가 높지
+          않더라도 데이터 수집, 특성 설계, 모델 평가, 실패 분석, 개선 방향 제시의 전체 과정을 보여줄 수
+          있다면 학습 목적의 프로젝트로 충분한 완성도를 가질 수 있습니다.
+        </p>
+      </section>
+    </main>
+  </div>
+  <script src="assets/script.js"></script>
+</body>
+</html>

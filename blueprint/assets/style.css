@@ -202,6 +202,43 @@ li {
   border-left-color: var(--gold);
 }
 
+.quote {
+  padding: 18px 20px;
+  border: 1px solid #c8d4e7;
+  border-left: 5px solid var(--accent);
+  border-radius: 8px;
+  background: #eef6f6;
+  color: #174b4f;
+  font-weight: 800;
+  box-shadow: var(--shadow);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  margin: 4px 5px 4px 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.research-steps {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.research-steps .step {
+  min-height: 92px;
+  display: grid;
+  align-content: center;
+  text-align: center;
+}
+
 .two-col {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -375,6 +412,7 @@ pre code {
   .summary-grid,
   .flow,
   .metric-row,
+  .research-steps,
   .two-col {
     grid-template-columns: 1fr;
   }
@@ -389,4 +427,3 @@ pre code {
     grid-template-columns: 1fr;
   }
 }
-
