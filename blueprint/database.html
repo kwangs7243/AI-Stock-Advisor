@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Database | AI Stock Advisor Blueprint</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <p class="brand-title">AI Stock Advisor Blueprint</p>
+        <p class="brand-subtitle">뉴스 감성분석 기반 주식 어드바이저 서비스</p>
+      </div>
+      <nav class="nav" aria-label="문서 메뉴">
+        <a href="index.html">Home</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="requirements.html">Requirements</a>
+        <a href="database.html">Database</a>
+        <a href="model_pipeline.html">Model Pipeline</a>
+        <a href="llm.html">LLM</a>
+        <a href="api.html">API</a>
+        <a href="schedule.html">Schedule</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <header class="page-header">
+        <p class="eyebrow">Database Design</p>
+        <h1>DB 설계 초안</h1>
+        <p class="lead">뉴스, 감성점수, 주가, 예측 결과, 사용자 질문 로그를 연결해 서비스의 중심 저장소를 구성합니다.</p>
+      </header>
+
+      <section class="section">
+        <h2>DB가 필요한 이유</h2>
+        <div class="two-col">
+          <div class="callout">
+            <strong>분석 데이터 저장</strong>
+            <p>뉴스 원본, 전처리 결과, 감성분석 결과를 일관된 구조로 저장해야 합니다.</p>
+          </div>
+          <div class="callout gold">
+            <strong>서비스 조회 성능</strong>
+            <p>Flask 화면에서 종목별 뉴스, 감성 흐름, 예측 결과를 빠르게 조회해야 합니다.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>주요 테이블 후보</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>테이블</th>
+                <th>역할</th>
+                <th>주요 컬럼 후보</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>stocks</td><td>종목 기본 정보</td><td>stock_id, stock_code, company_name, market</td></tr>
+              <tr><td>news</td><td>뉴스 원문과 메타데이터</td><td>news_id, stock_id, title, content, url, publisher, published_at</td></tr>
+              <tr><td>sentiment_results</td><td>뉴스별 감성분석 결과</td><td>result_id, news_id, label, score, model_version</td></tr>
+              <tr><td>stock_prices</td><td>일자별 주가 데이터</td><td>price_id, stock_id, date, close_price, change_rate, volume</td></tr>
+              <tr><td>predictions</td><td>회귀모델 예측 결과</td><td>prediction_id, stock_id, base_date, predicted_value, model_version</td></tr>
+              <tr><td>chat_logs</td><td>사용자 질문과 LLM 응답 기록</td><td>log_id, stock_id, question, answer, created_at</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="assets/script.js"></script>
+</body>
+</html>
+

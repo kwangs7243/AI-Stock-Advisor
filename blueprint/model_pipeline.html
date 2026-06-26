@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Model Pipeline | AI Stock Advisor Blueprint</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <p class="brand-title">AI Stock Advisor Blueprint</p>
+        <p class="brand-subtitle">뉴스 감성분석 기반 주식 어드바이저 서비스</p>
+      </div>
+      <nav class="nav" aria-label="문서 메뉴">
+        <a href="index.html">Home</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="requirements.html">Requirements</a>
+        <a href="database.html">Database</a>
+        <a href="model_pipeline.html">Model Pipeline</a>
+        <a href="llm.html">LLM</a>
+        <a href="api.html">API</a>
+        <a href="schedule.html">Schedule</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <header class="page-header">
+        <p class="eyebrow">ML Pipeline</p>
+        <h1>모델 파이프라인</h1>
+        <p class="lead">뉴스 텍스트를 감성점수로 바꾸고, 주가 데이터와 결합해 예측 참고 정보를 생성하는 흐름입니다.</p>
+      </header>
+
+      <section class="section">
+        <h2>처리 단계</h2>
+        <div class="flow">
+          <div class="lane">
+            <h3>1. 수집 및 전처리</h3>
+            <div class="step"><strong>뉴스 수집</strong><small>종목 키워드 기준 뉴스 수집</small></div>
+            <div class="step"><strong>텍스트 정제</strong><small>HTML 제거, 중복 제거, 결측치 처리</small></div>
+            <div class="step"><strong>날짜 정리</strong><small>뉴스 날짜와 주가 날짜 매칭 준비</small></div>
+          </div>
+          <div class="lane">
+            <h3>2. 감성분석</h3>
+            <div class="step"><strong>모델 후보</strong><small>BERT, KoBERT, scikit-learn 모델</small></div>
+            <div class="step"><strong>결과</strong><small>긍정, 부정, 중립 라벨과 점수</small></div>
+            <div class="step"><strong>저장</strong><small>뉴스별 감성 결과를 DB에 저장</small></div>
+          </div>
+          <div class="lane">
+            <h3>3. 예측 모델</h3>
+            <div class="step"><strong>특성 생성</strong><small>감성점수, 등락률, 거래량, 이동평균</small></div>
+            <div class="step"><strong>모델 후보</strong><small>LinearRegression, RandomForest, XGBoost</small></div>
+            <div class="step"><strong>결과 제공</strong><small>예측값과 사용 특성을 저장</small></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>저장 파일 후보</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>파일</th><th>설명</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>sentiment_model.pkl 또는 .h5</td><td>뉴스 감성분석 모델</td></tr>
+              <tr><td>regression_model.pkl</td><td>주가 예측 참고값 생성 모델</td></tr>
+              <tr><td>tokenizer</td><td>텍스트 토큰화에 사용하는 자원</td></tr>
+              <tr><td>scaler.pkl</td><td>수치형 특성 스케일링 도구</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="assets/script.js"></script>
+</body>
+</html>
+

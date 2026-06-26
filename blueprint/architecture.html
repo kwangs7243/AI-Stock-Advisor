@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architecture | AI Stock Advisor Blueprint</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <p class="brand-title">AI Stock Advisor Blueprint</p>
+        <p class="brand-subtitle">뉴스 감성분석 기반 주식 어드바이저 서비스</p>
+      </div>
+      <nav class="nav" aria-label="문서 메뉴">
+        <a href="index.html">Home</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="requirements.html">Requirements</a>
+        <a href="database.html">Database</a>
+        <a href="model_pipeline.html">Model Pipeline</a>
+        <a href="llm.html">LLM</a>
+        <a href="api.html">API</a>
+        <a href="schedule.html">Schedule</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <header class="page-header">
+        <p class="eyebrow">System Architecture</p>
+        <h1>전체 시스템 구조</h1>
+        <p class="lead">데이터 수집, 모델 분석, DB 저장, Flask 웹 서비스, LLM 설명 기능이 연결되는 구조입니다.</p>
+      </header>
+
+      <section class="section">
+        <h2>구성 개요</h2>
+        <div class="mermaid-wrap">
+          <pre class="mermaid">
+flowchart LR
+  A["뉴스 수집"] --> B["뉴스 전처리"]
+  B --> C["감성분석 모델"]
+  C --> D["감성 점수"]
+  E["주가 데이터"] --> F["특성 결합"]
+  D --> F
+  F --> G["회귀모델"]
+  G --> H["예측 결과"]
+  D --> I[("MySQL DB")]
+  E --> I
+  H --> I
+  I --> J["Flask 서버"]
+  J --> K["웹 화면"]
+  I --> L["LLM 설명"]
+  L --> K
+          </pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>주요 계층</h2>
+        <div class="flow">
+          <div class="lane">
+            <h3>Data Layer</h3>
+            <div class="step"><strong>news</strong><small>뉴스 원문과 메타데이터 저장</small></div>
+            <div class="step"><strong>stock_prices</strong><small>일자별 주가 데이터 저장</small></div>
+            <div class="step"><strong>sentiment_results</strong><small>뉴스별 감성분석 결과 저장</small></div>
+          </div>
+          <div class="lane">
+            <h3>ML Layer</h3>
+            <div class="step"><strong>Sentiment Model</strong><small>뉴스 텍스트를 감성 점수로 변환</small></div>
+            <div class="step"><strong>Regression Model</strong><small>감성점수와 가격 특성으로 예측 참고값 생성</small></div>
+            <div class="step"><strong>Model Storage</strong><small>모델, 토크나이저, 스케일러 파일 관리</small></div>
+          </div>
+          <div class="lane">
+            <h3>Service Layer</h3>
+            <div class="step"><strong>Flask</strong><small>검색, 조회, API 응답 처리</small></div>
+            <div class="step"><strong>HTML/CSS/JS</strong><small>분석 결과 시각화</small></div>
+            <div class="step"><strong>LLM</strong><small>모델 결과를 사용자 친화적으로 설명</small></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: "base" });</script>
+  <script src="assets/script.js"></script>
+</body>
+</html>
+
