@@ -31,8 +31,8 @@
         <p class="eyebrow">Project Blueprint</p>
         <h1>AI 뉴스 감성분석 기반 주식 어드바이저 연구 프로젝트</h1>
         <p class="lead">
-          약 1개월 안에 구현 가능한 MVP를 먼저 만들고, 뉴스 감성분석과 간단한 예측 결과를 바탕으로
-          뉴스 기반 주가 예측의 가능성과 한계를 분석하는 연구형 설계 문서입니다.
+          뉴스 감성분석과 프로젝트 범위 내 예측 결과를 바탕으로 뉴스 기반 주가 예측의 가능성과 한계를 분석하고,
+          그 결과를 사용자에게 설명할 수 있는 AI 기반 주식 어드바이저 서비스를 구현하는 설계 문서입니다.
         </p>
       </header>
 
@@ -40,20 +40,29 @@
         <h2>프로젝트 목적</h2>
         <p>
           특정 종목과 관련된 뉴스를 수집하고 AI로 감성분석한 뒤, 감성 결과와 주가 데이터를 DB에 저장합니다.
-          이후 간단한 회귀모델 또는 모의 예측 결과를 웹 화면에 표시하고, LLM이 결과를 설명하도록 구성합니다.
+          이후 회귀모델 또는 프로젝트 범위 내 예측 결과를 웹 화면에 표시하고, LLM이 결과를 설명하도록 구성합니다.
         </p>
         <div class="callout">
           <strong>핵심 문장</strong>
-          <p>이 프로젝트의 핵심은 이상적인 AI 투자 서비스를 완성하는 것이 아니라, 구현 가능한 범위 안에서 예측 가능성과 한계를 검토하는 것입니다.</p>
+          <p>이 프로젝트의 핵심은 정확한 예측 자체가 아니라 데이터 수집, Feature Engineering, 모델 학습, 결과 분석, 한계 분석, 향후 개선 방향 제시까지 포함하는 전체 개발 과정을 구현하는 것입니다.</p>
         </div>
       </section>
 
       <section class="section">
-        <h2>MVP 구현 범위</h2>
+        <h2>프로젝트 메시지</h2>
+        <div class="quote">
+          본 프로젝트는 AI를 이용해 주가를 완벽하게 예측하는 서비스를 만드는 것이 아니라,
+          뉴스 감성분석과 다양한 데이터 특성이 주가 예측에 어떤 영향을 주는지 실험하고,
+          그 결과와 한계를 사용자에게 설명할 수 있는 AI 기반 주식 어드바이저 서비스를 구현하는 것을 목표로 합니다.
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>1차 프로젝트 구현 범위</h2>
         <div class="two-col">
           <div class="callout">
             <strong>필수 구현</strong>
-            <p>뉴스 수집, 전처리, 감성분석, DB 저장, 주가 데이터 저장, 간단한 예측, Flask 화면, LLM 설명을 구현합니다.</p>
+            <p>뉴스 수집, 전처리, 감성분석, DB 저장, 주가 데이터 저장, 회귀모델 학습, Flask 화면, LLM 설명을 구현합니다.</p>
           </div>
           <div class="callout gold">
             <strong>결과 분석</strong>
@@ -94,7 +103,7 @@
             <h3>AI 분석</h3>
             <div class="step"><strong>감성분석</strong><small>긍정, 부정, 중립 점수 생성</small></div>
             <div class="step"><strong>특성 결합</strong><small>감성점수와 주가 데이터 결합</small></div>
-            <div class="step"><strong>간단한 예측</strong><small>회귀모델 또는 모의 예측값 생성</small></div>
+            <div class="step"><strong>예측 기능</strong><small>회귀모델 또는 프로젝트 범위 내 예측값 생성</small></div>
           </div>
           <div class="lane">
             <h3>웹 서비스</h3>
@@ -108,7 +117,7 @@
       <section class="section">
         <h2>향후 연구 및 확장</h2>
         <p>
-          자동 재학습, 고도화된 RAG, 벡터DB, 관리자 페이지, 다단계 Baseline 비교 등은 1개월 MVP 이후의
+          자동 재학습, 고도화된 RAG, 벡터DB, 관리자 페이지, 다단계 Baseline 비교 등은 1차 프로젝트 이후의
           확장 가능 기능으로 분리합니다.
         </p>
       </section>
