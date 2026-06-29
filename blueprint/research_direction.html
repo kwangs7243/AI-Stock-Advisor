@@ -16,6 +16,7 @@
       <nav class="nav" aria-label="문서 메뉴">
         <a href="index.html">홈</a>
         <a href="research_direction.html">연구 방향</a>
+        <a href="mvp_scope.html">MVP 범위</a>
         <a href="architecture.html">전체 구조</a>
         <a href="requirements.html">기능 요구사항</a>
         <a href="database.html">DB 설계</a>
@@ -85,6 +86,10 @@
 
       <section class="section">
         <h2>현재 프로젝트에서 구현한 내용</h2>
+        <p>
+          처음부터 모든 카테고리와 모든 모델을 구현하지 않고, 게임 카테고리 MVP로 전체 파이프라인을 먼저 검증합니다.
+          모델 성능 자체보다 데이터 흐름, 특성 설계, 실패 분석 가능성을 우선 확인합니다.
+        </p>
         <div class="research-steps">
           <div class="step"><strong>1</strong><span>뉴스 수집</span></div>
           <div class="step"><strong>2</strong><span>감성분석</span></div>
@@ -92,6 +97,20 @@
           <div class="step"><strong>4</strong><span>회귀모델 학습</span></div>
           <div class="step"><strong>5</strong><span>실제 결과 비교</span></div>
           <div class="step"><strong>6</strong><span>실패 원인 분석</span></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>게임 카테고리 MVP 접근</h2>
+        <div class="two-col">
+          <div class="callout">
+            <strong>먼저 검증할 것</strong>
+            <p>게임 뉴스 수집, 요약 또는 요약 대체 처리, 감성점수 생성, 주가 데이터 결합, 회귀모델 3종 비교, Flask 출력까지 흐름을 연결합니다.</p>
+          </div>
+          <div class="callout gold">
+            <strong>확장할 것</strong>
+            <p>게임 카테고리에서 검증한 구조를 기반으로 반도체, AI, 바이오 등 다른 카테고리로 확장합니다.</p>
+          </div>
         </div>
       </section>
 
@@ -170,6 +189,9 @@
           <span class="tag">기관 수급</span>
           <span class="tag">시장지수</span>
           <span class="tag">업종지수</span>
+          <span class="tag">반도체 카테고리</span>
+          <span class="tag">AI 카테고리</span>
+          <span class="tag">바이오 카테고리</span>
           <span class="tag">SNS 감성</span>
           <span class="tag">검색량</span>
           <span class="tag">거래대금</span>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MVP Scope | AI Stock Advisor Blueprint</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <p class="brand-title">AI Stock Advisor Blueprint</p>
+        <p class="brand-subtitle">뉴스 감성분석 기반 연구형 주식 어드바이저</p>
+      </div>
+      <nav class="nav" aria-label="문서 메뉴">
+        <a href="index.html">홈</a>
+        <a href="research_direction.html">연구 방향</a>
+        <a href="mvp_scope.html">MVP 범위</a>
+        <a href="architecture.html">전체 구조</a>
+        <a href="requirements.html">기능 요구사항</a>
+        <a href="database.html">DB 설계</a>
+        <a href="model_pipeline.html">모델 파이프라인</a>
+        <a href="llm.html">LLM 설명</a>
+        <a href="api.html">API 설계</a>
+        <a href="schedule.html">일정 계획</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <header class="page-header">
+        <p class="eyebrow">MVP Scope</p>
+        <h1>게임 카테고리 MVP 범위</h1>
+        <p class="lead">
+          MVP의 목표는 전체 서비스를 완성하는 것이 아니라, 게임 카테고리 하나를 대상으로
+          데이터 수집부터 Flask 출력까지 최소 흐름이 연결되는지 검증하는 것입니다.
+        </p>
+      </header>
+
+      <section class="section">
+        <h2>범위 정의</h2>
+        <div class="two-col">
+          <div class="callout">
+            <strong>카테고리 제한</strong>
+            <p>첫 구현 대상은 게임 카테고리로 제한합니다. 반도체, AI, 바이오 등은 이후 확장 대상으로 둡니다.</p>
+          </div>
+          <div class="callout gold">
+            <strong>완료 기준</strong>
+            <p>UI 완성도보다 데이터가 수집, 분석, 결합, 모델 학습, Flask 화면 출력까지 전달되는지를 우선 확인합니다.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>MVP 처리 흐름</h2>
+        <div class="research-steps">
+          <div class="step"><strong>1</strong><span>게임 뉴스 수집</span></div>
+          <div class="step"><strong>2</strong><span>전처리 및 요약</span></div>
+          <div class="step"><strong>3</strong><span>감성분석</span></div>
+          <div class="step"><strong>4</strong><span>특성 생성</span></div>
+          <div class="step"><strong>5</strong><span>회귀모델 3종 비교</span></div>
+          <div class="step"><strong>6</strong><span>Flask 결과 출력</span></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>구현 범위</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>영역</th><th>MVP 기준</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>뉴스 수집원</td><td>네이버 뉴스, Google API, BigKinds를 후보로 기록하되, 구현 가능한 1개 소스부터 시작합니다.</td></tr>
+              <tr><td>감성분석 입력</td><td>뉴스 원문 전체보다 요약본을 우선 사용합니다. 요약 모델 적용이 어렵다면 요약 대체 처리로 시작합니다.</td></tr>
+              <tr><td>회귀모델 데이터셋</td><td>기준일 이전 3일 데이터를 문제로 사용하고, 기준일의 주가 또는 주가 변화값을 정답으로 사용합니다.</td></tr>
+              <tr><td>회귀모델 비교</td><td>3개 회귀모델 후보를 비교해 예측 성능과 한계를 확인합니다.</td></tr>
+              <tr><td>Flask 출력</td><td>화면 완성도보다 수집 데이터, 감성점수, 예측 결과가 끝까지 전달되는지 확인합니다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>MVP 완료 기준</h2>
+        <div class="summary-grid">
+          <div class="summary-item"><strong>뉴스 수집</strong><span>게임 뉴스 데이터 수집 가능</span></div>
+          <div class="summary-item"><strong>전처리</strong><span>뉴스 전처리 가능</span></div>
+          <div class="summary-item"><strong>요약</strong><span>요약 또는 요약 대체 처리 가능</span></div>
+          <div class="summary-item"><strong>감성점수</strong><span>요약본 기반 감성점수 생성 가능</span></div>
+          <div class="summary-item"><strong>데이터 결합</strong><span>주가 데이터와 결합 가능</span></div>
+          <div class="summary-item"><strong>학습 데이터셋</strong><span>회귀모델용 데이터셋 생성 가능</span></div>
+          <div class="summary-item"><strong>모델 비교</strong><span>3개 회귀모델 비교 가능</span></div>
+          <div class="summary-item"><strong>웹 확인</strong><span>Flask 화면에서 결과 확인 가능</span></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="assets/script.js"></script>
+</body>
+</html>
+
