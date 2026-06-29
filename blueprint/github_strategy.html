@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Strategy | AI Stock Advisor Blueprint</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <p class="brand-title">AI Stock Advisor Blueprint</p>
+        <p class="brand-subtitle">뉴스 감성분석 기반 연구형 주식 어드바이저</p>
+      </div>
+      <nav class="nav" aria-label="문서 메뉴">
+        <a href="index.html">프로젝트 소개</a>
+        <a href="architecture.html">전체 아키텍처</a>
+        <a href="mvp_scope.html">MVP 구현 계획</a>
+        <a href="model_pipeline.html">모델 설계</a>
+        <a href="github_strategy.html">GitHub 협업</a>
+        <a href="future_plan.html">향후 확장</a>
+        <a href="project_rules.html">프로젝트 규칙</a>
+        <a href="research_direction.html">연구 방향</a>
+        <a href="requirements.html">기능 요구사항</a>
+        <a href="database.html">DB 설계</a>
+        <a href="api.html">API 설계</a>
+        <a href="schedule.html">일정 계획</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <header class="page-header">
+        <p class="eyebrow">GitHub Strategy</p>
+        <h1>GitHub 협업 전략</h1>
+        <p class="lead">팀 작업은 main, mvp, feature 브랜치를 기준으로 관리합니다.</p>
+      </header>
+
+      <section class="section">
+        <h2>브랜치 전략</h2>
+        <div class="mermaid-wrap">
+          <pre class="mermaid">
+flowchart TD
+  A["main<br>발표 가능 안정 버전"] --> B["mvp<br>MVP 통합 검증"]
+  B --> C["feature/data-collection"]
+  B --> D["feature/sentiment-model"]
+  B --> E["feature/regression-model"]
+  B --> F["feature/flask-view"]
+          </pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>작업 흐름</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>단계</th><th>작업</th><th>확인 기준</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>feature/* 브랜치에서 개별 기능 작업</td><td>담당 기능 단위로 실행 가능</td></tr>
+              <tr><td>2</td><td>mvp 브랜치로 Merge</td><td>전체 파이프라인과 충돌 여부 확인</td></tr>
+              <tr><td>3</td><td>MVP 검증</td><td>수집부터 Flask 출력까지 연결 확인</td></tr>
+              <tr><td>4</td><td>main 브랜치로 Merge</td><td>발표 가능한 안정 버전 유지</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>초기 폴더 구조</h2>
+        <p>모든 폴더를 미리 만들지 않고, 필요한 최소 구조만 두고 진행하면서 확장합니다.</p>
+        <pre><code>AI-Stock-Advisor/
+  blueprint/
+  src/
+    data/
+    models/
+    web/
+  README.md</code></pre>
+      </section>
+
+      <section class="section">
+        <h2>협업 규칙</h2>
+        <ul>
+          <li>한 브랜치는 하나의 기능 목표만 담당합니다.</li>
+          <li>데이터 수집, 모델, Flask 화면 변경은 서로 영향 범위를 짧게 공유합니다.</li>
+          <li>main은 발표 가능한 상태만 유지합니다.</li>
+          <li>Blueprint 변경은 구현 변경과 함께 업데이트합니다.</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: "base" });</script>
+  <script src="assets/script.js"></script>
+</body>
+</html>
+

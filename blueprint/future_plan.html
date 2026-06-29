@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Future Plan | AI Stock Advisor Blueprint</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <p class="brand-title">AI Stock Advisor Blueprint</p>
+        <p class="brand-subtitle">뉴스 감성분석 기반 연구형 주식 어드바이저</p>
+      </div>
+      <nav class="nav" aria-label="문서 메뉴">
+        <a href="index.html">프로젝트 소개</a>
+        <a href="architecture.html">전체 아키텍처</a>
+        <a href="mvp_scope.html">MVP 구현 계획</a>
+        <a href="model_pipeline.html">모델 설계</a>
+        <a href="github_strategy.html">GitHub 협업</a>
+        <a href="future_plan.html">향후 확장</a>
+        <a href="project_rules.html">프로젝트 규칙</a>
+        <a href="research_direction.html">연구 방향</a>
+        <a href="requirements.html">기능 요구사항</a>
+        <a href="database.html">DB 설계</a>
+        <a href="api.html">API 설계</a>
+        <a href="schedule.html">일정 계획</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <header class="page-header">
+        <p class="eyebrow">Future Research</p>
+        <h1>향후 확장 계획</h1>
+        <p class="lead">MVP에서 검증한 구조를 바탕으로 카테고리, Feature, 모델, 서비스 기능을 확장합니다.</p>
+      </header>
+
+      <section class="section">
+        <h2>확장 방향</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>영역</th><th>확장 내용</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>카테고리 확장</td><td>게임 이후 AI, 반도체, 바이오 등으로 감성모델을 분리 확장</td></tr>
+              <tr><td>Feature 확장</td><td>시장지수, 업종지수, 수급, 환율, 금리, 검색량, SNS 감성 추가</td></tr>
+              <tr><td>회귀모델 확장</td><td>다음날 종가, 수익률, 거래량 등 예측 목표별 모델 관리</td></tr>
+              <tr><td>서비스 확장</td><td>Prediction Feedback API, 관리자 페이지, 자동 재학습, 실시간 파이프라인 검토</td></tr>
+              <tr><td>LLM 확장</td><td>고도화된 RAG, 벡터DB, 근거 뉴스 검색 품질 개선</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>확장 원칙</h2>
+        <div class="callout">
+          <strong>기존 구조를 바꾸기보다 추가한다</strong>
+          <p>새 카테고리, 새 Feature, 새 모델은 기존 파이프라인을 깨지 않고 확장 모듈로 붙입니다.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="assets/script.js"></script>
+</body>
+</html>
+

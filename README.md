@@ -14,6 +14,13 @@ https://<github-id>.github.io/<repository-name>/blueprint/
 
 로컬에서는 [blueprint/index.html](blueprint/index.html)을 브라우저로 열면 됩니다.
 
-주요 연구 방향은 [blueprint/research_direction.html](blueprint/research_direction.html)에 정리되어 있으며, 문서 사이트 메뉴는 팀 발표와 검토에 맞춰 한글로 구성되어 있습니다.
+문서 사이트는 다음 흐름으로 구성되어 있습니다.
+
+- 프로젝트 소개: 목적, 목표, 핵심 아이디어, 개발 철학
+- 전체 아키텍처: Pipeline, 계층 구조, 데이터 흐름
+- MVP 구현 계획: 범위, 제외 범위, 단계별 작업, 완료 조건
+- 모델 설계: 뉴스 처리, 감성모델, Feature, 회귀모델, 데이터셋 구조
+- GitHub 협업: 브랜치 전략, 작업 흐름, 최소 폴더 구조
+- 향후 확장: 카테고리, Feature, 모델, 서비스 확장 방향
 
 팀 회의에서 정한 게임 카테고리 MVP 범위와 완료 기준은 [blueprint/mvp_scope.html](blueprint/mvp_scope.html)에 정리되어 있습니다.

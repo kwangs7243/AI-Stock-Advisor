@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Model Pipeline | AI Stock Advisor Blueprint</title>
+  <title>Model Design | AI Stock Advisor Blueprint</title>
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -14,14 +14,16 @@
         <p class="brand-subtitle">뉴스 감성분석 기반 연구형 주식 어드바이저</p>
       </div>
       <nav class="nav" aria-label="문서 메뉴">
-        <a href="index.html">홈</a>
+        <a href="index.html">프로젝트 소개</a>
+        <a href="architecture.html">전체 아키텍처</a>
+        <a href="mvp_scope.html">MVP 구현 계획</a>
+        <a href="model_pipeline.html">모델 설계</a>
+        <a href="github_strategy.html">GitHub 협업</a>
+        <a href="future_plan.html">향후 확장</a>
+        <a href="project_rules.html">프로젝트 규칙</a>
         <a href="research_direction.html">연구 방향</a>
-        <a href="mvp_scope.html">MVP 범위</a>
-        <a href="architecture.html">전체 구조</a>
         <a href="requirements.html">기능 요구사항</a>
         <a href="database.html">DB 설계</a>
-        <a href="model_pipeline.html">모델 파이프라인</a>
-        <a href="llm.html">LLM 설명</a>
         <a href="api.html">API 설계</a>
         <a href="schedule.html">일정 계획</a>
       </nav>
@@ -29,90 +31,138 @@
 
     <main class="content">
       <header class="page-header">
-        <p class="eyebrow">ML Pipeline</p>
-        <h1>모델 파이프라인</h1>
-        <p class="lead">MVP에서는 게임 카테고리를 대상으로 뉴스 수집, 요약, 감성분석, 특성 생성, 회귀모델 3종 비교, Flask 출력까지 연결되는지 검증합니다.</p>
+        <p class="eyebrow">Model Design</p>
+        <h1>모델 설계</h1>
+        <p class="lead">
+          모델 설계는 뉴스 처리, 카테고리별 감성모델, Feature 생성, 예측 목표별 회귀모델을 분리해
+          이후 실험과 확장이 쉬운 구조로 관리합니다.
+        </p>
       </header>
 
       <section class="section">
-        <h2>처리 단계</h2>
+        <h2>1. 뉴스 수집</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>후보</th><th>MVP 사용 방식</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>네이버 뉴스</td><td>구현 가능한 1차 수집원 후보</td></tr>
+              <tr><td>Google API</td><td>수집 안정성 비교 후보</td></tr>
+              <tr><td>BigKinds</td><td>정제된 뉴스 데이터 확보 후보</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>2. 뉴스 전처리</h2>
+        <div class="summary-grid">
+          <div class="summary-item"><strong>중복 제거</strong><span>동일 기사와 유사 제목을 정리합니다.</span></div>
+          <div class="summary-item"><strong>날짜 정리</strong><span>뉴스 날짜와 주가 기준일을 맞춥니다.</span></div>
+          <div class="summary-item"><strong>본문 정제</strong><span>HTML, 광고 문구, 불필요한 문자를 제거합니다.</span></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>3. 뉴스 처리</h2>
         <div class="flow">
           <div class="lane">
-            <h3>1. 수집 및 전처리</h3>
-            <div class="step"><strong>뉴스 수집</strong><small>네이버 뉴스, Google API, BigKinds 후보 중 구현 가능한 1개 소스부터 시작</small></div>
-            <div class="step"><strong>텍스트 정제</strong><small>HTML 제거, 중복 제거, 결측치 처리</small></div>
-            <div class="step"><strong>요약/키워드</strong><small>BART 계열 요약 후보, 키워드 추출, 날짜 정리</small></div>
+            <h3>요약</h3>
+            <div class="step"><strong>BART 계열 후보</strong><small>요약 모델 적용을 검토</small></div>
+            <div class="step"><strong>대체 처리</strong><small>모델 적용이 어렵다면 제목+본문 일부로 대체</small></div>
           </div>
           <div class="lane">
-            <h3>2. 관련성 및 감성분석</h3>
-            <div class="step"><strong>유사도 계산</strong><small>뉴스와 종목/카테고리 유사도 기준값 적용</small></div>
-            <div class="step"><strong>카테고리 분류</strong><small>MVP에서는 게임 카테고리부터 시작</small></div>
-            <div class="step"><strong>모델 후보</strong><small>BERT 파생 모델, 요약본 기반 감성분석</small></div>
-            <div class="step"><strong>결과</strong><small>긍정, 부정, 중립 라벨과 점수</small></div>
+            <h3>관련성 판단</h3>
+            <div class="step"><strong>키워드 추출</strong><small>기업명, 게임명, 산업 키워드 추출</small></div>
+            <div class="step"><strong>유사도 계산</strong><small>종목/카테고리와 관련성이 낮은 뉴스 제외 가능</small></div>
           </div>
           <div class="lane">
-            <h3>3. 예측 및 분석</h3>
-            <div class="step"><strong>특성 생성</strong><small>기준일 이전 3일 데이터를 문제로 구성</small></div>
-            <div class="step"><strong>회귀모델 학습</strong><small>기준일 주가 또는 주가 변화값을 정답으로 사용</small></div>
-            <div class="step"><strong>3종 비교</strong><small>회귀모델 후보 3개를 비교해 성능과 한계 확인</small></div>
-            <div class="step"><strong>결과 분석</strong><small>예측값과 실제 결과의 차이 해석</small></div>
+            <h3>카테고리 분류</h3>
+            <div class="step"><strong>게임 우선</strong><small>MVP에서는 게임 카테고리만 구현</small></div>
+            <div class="step"><strong>확장 가능</strong><small>AI, 반도체, 바이오로 확장</small></div>
           </div>
         </div>
       </section>
 
       <section class="section">
-        <h2>모델 및 데이터 후보</h2>
+        <h2>4. 카테고리별 감성모델</h2>
+        <p>감성분석 모델은 하나로 고정하지 않고 카테고리별로 관리합니다. MVP에서는 게임 뉴스 모델만 구현합니다.</p>
+        <div class="mermaid-wrap">
+          <pre class="mermaid">
+flowchart TD
+  A["뉴스"] --> B["카테고리 분류"]
+  B --> C{"카테고리"}
+  C --> D["게임 뉴스 모델"]
+  C --> E["AI 뉴스 모델"]
+  C --> F["반도체 뉴스 모델"]
+  C --> G["바이오 뉴스 모델"]
+  D --> H["감성점수 생성"]
+  E --> H
+  F --> H
+  G --> H
+          </pre>
+        </div>
+        <div class="callout">
+          <strong>감성분석 입력</strong>
+          <p>뉴스 원문 전체가 아니라 요약된 뉴스를 우선 입력으로 사용합니다.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>5. Feature 생성</h2>
         <div class="table-wrap">
           <table>
             <thead>
-              <tr><th>항목</th><th>MVP 기준</th><th>확장 방향</th></tr>
+              <tr><th>Feature 후보</th><th>의미</th></tr>
             </thead>
             <tbody>
-              <tr><td>뉴스 수집</td><td>네이버 뉴스, Google API, BigKinds 중 구현 가능한 1개 소스부터 시작</td><td>수집원 다중화와 품질 비교</td></tr>
-              <tr><td>요약</td><td>BART 계열 요약 모델 후보를 검토하고, 어려우면 요약 대체 처리 적용</td><td>요약 품질 평가와 금융 도메인 튜닝</td></tr>
-              <tr><td>감성분석</td><td>BERT 파생 모델을 후보로 두고 뉴스 원문보다 요약본을 우선 입력으로 사용</td><td>금융 문맥에 맞춘 감성분석 모델 고도화</td></tr>
-              <tr><td>유사도 기준</td><td>뉴스와 종목/카테고리 유사도 기준값을 정해 관련성이 낮은 뉴스는 제외 가능</td><td>라벨링 기준 자동화와 카테고리별 기준값 조정</td></tr>
-              <tr><td>카테고리 확장</td><td>게임 카테고리부터 시작</td><td>반도체, AI, 바이오 등 카테고리별 모델 확장</td></tr>
+              <tr><td>감성점수</td><td>요약본 기반 감성분석 결과</td></tr>
+              <tr><td>시가, 종가, 고가, 저가</td><td>기본 가격 정보</td></tr>
+              <tr><td>거래량</td><td>시장 관심과 유동성 정보</td></tr>
+              <tr><td>뉴스 개수</td><td>해당 기간 이슈 강도</td></tr>
+              <tr><td>키워드 정보</td><td>게임명, 기업명, 이슈 키워드</td></tr>
             </tbody>
           </table>
+        </div>
+        <p>새로운 Feature는 하나의 Feature Set에 추가하는 방식으로 점진적으로 확장합니다.</p>
+      </section>
+
+      <section class="section">
+        <h2>6. 회귀모델 구조</h2>
+        <p>Feature Set은 동일하게 사용하고, 예측 목표(y)에 따라 회귀모델을 별도로 관리합니다.</p>
+        <div class="mermaid-wrap">
+          <pre class="mermaid">
+flowchart TD
+  A["Feature Set"] --> B["다음날 종가 예측 모델"]
+  A --> C["다음날 수익률 예측 모델"]
+  A --> D["다음날 거래량 예측 모델"]
+          </pre>
+        </div>
+        <div class="callout gold">
+          <strong>MVP 원칙</strong>
+          <p>MVP에서는 예측 목표(y)를 하나만 선택합니다. 다중출력 회귀는 MVP 범위에 포함하지 않습니다.</p>
         </div>
       </section>
 
       <section class="section">
-        <h2>회귀모델 데이터셋 구조</h2>
-        <p>
-          회귀모델은 기준일 이전 3일의 뉴스 감성점수와 주가 관련 특성을 문제로 사용하고,
-          기준일의 주가 또는 주가 변화값을 정답으로 사용하는 구조로 설계합니다.
-          MVP에서는 3개 회귀모델 후보를 비교해 데이터 흐름과 예측 한계를 확인합니다.
-        </p>
-      </section>
-
-      <section class="section">
-        <h2>1차 프로젝트 저장 파일 후보</h2>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr><th>파일</th><th>설명</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>sentiment_model.pkl 또는 .h5</td><td>뉴스 감성분석 모델</td></tr>
-              <tr><td>regression_model.pkl</td><td>간단한 주가 예측 참고값 생성 모델</td></tr>
-              <tr><td>tokenizer</td><td>텍스트 토큰화에 사용하는 자원</td></tr>
-              <tr><td>scaler.pkl</td><td>필요한 경우에만 사용하는 기본 스케일링 도구</td></tr>
-            </tbody>
-          </table>
+        <h2>7. 데이터셋 구조</h2>
+        <div class="mermaid-wrap">
+          <pre class="mermaid">
+flowchart LR
+  A["최근 3일 데이터<br>감성점수, 시가, 종가, 고가, 저가,<br>거래량, 뉴스 개수, 키워드"] --> B["입력 X"]
+  B --> C["회귀모델"]
+  C --> D["정답 y<br>다음날 종가 또는 다음날 수익률"]
+          </pre>
         </div>
-      </section>
-
-      <section class="section">
-        <h2>향후 연구 방향</h2>
         <p>
-          고도화된 Feature Engineering, 카테고리별 모델 최적화, 시장지수·수급·환율·금리 등 외부 데이터 결합은
-          1차 프로젝트 이후 성능 개선을 위해 검토할 확장 연구로 분리합니다.
+          Window Size는 기본 3일로 시작하지만, 이후 실험에서 5일, 7일 등으로 변경할 수 있게 설계합니다.
         </p>
       </section>
     </main>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: "base" });</script>
   <script src="assets/script.js"></script>
 </body>
 </html>

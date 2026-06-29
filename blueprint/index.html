@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Stock Advisor Blueprint</title>
+  <title>Project Overview | AI Stock Advisor Blueprint</title>
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -14,14 +14,16 @@
         <p class="brand-subtitle">뉴스 감성분석 기반 연구형 주식 어드바이저</p>
       </div>
       <nav class="nav" aria-label="문서 메뉴">
-        <a href="index.html">홈</a>
+        <a href="index.html">프로젝트 소개</a>
+        <a href="architecture.html">전체 아키텍처</a>
+        <a href="mvp_scope.html">MVP 구현 계획</a>
+        <a href="model_pipeline.html">모델 설계</a>
+        <a href="github_strategy.html">GitHub 협업</a>
+        <a href="future_plan.html">향후 확장</a>
+        <a href="project_rules.html">프로젝트 규칙</a>
         <a href="research_direction.html">연구 방향</a>
-        <a href="mvp_scope.html">MVP 범위</a>
-        <a href="architecture.html">전체 구조</a>
         <a href="requirements.html">기능 요구사항</a>
         <a href="database.html">DB 설계</a>
-        <a href="model_pipeline.html">모델 파이프라인</a>
-        <a href="llm.html">LLM 설명</a>
         <a href="api.html">API 설계</a>
         <a href="schedule.html">일정 계획</a>
       </nav>
@@ -29,108 +31,80 @@
 
     <main class="content">
       <header class="page-header">
-        <p class="eyebrow">Project Blueprint</p>
-        <h1>AI 뉴스 감성분석 기반 주식 어드바이저 연구 프로젝트</h1>
+        <p class="eyebrow">Project Overview</p>
+        <h1>AI 뉴스 감성분석 기반 주식 어드바이저</h1>
         <p class="lead">
-          뉴스 감성분석과 프로젝트 범위 내 예측 결과를 바탕으로 뉴스 기반 주가 예측의 가능성과 한계를 분석하고,
-          그 결과를 사용자에게 설명할 수 있는 AI 기반 주식 어드바이저 서비스를 구현하는 설계 문서입니다.
+          뉴스 감성분석과 주가 데이터를 결합해 예측 가능성과 한계를 확인하고,
+          그 결과를 사용자가 이해할 수 있도록 설명하는 연구형 서비스 프로젝트입니다.
         </p>
       </header>
 
       <section class="section">
         <h2>프로젝트 목적</h2>
-        <p>
-          특정 종목과 관련된 뉴스를 수집하고 AI로 감성분석한 뒤, 감성 결과와 주가 데이터를 DB에 저장합니다.
-          이후 회귀모델 또는 프로젝트 범위 내 예측 결과를 웹 화면에 표시하고, LLM이 결과를 설명하도록 구성합니다.
-        </p>
-        <div class="callout">
-          <strong>핵심 문장</strong>
-          <p>이 프로젝트의 핵심은 정확한 예측 자체가 아니라 데이터 수집, Feature Engineering, 모델 학습, 결과 분석, 한계 분석, 향후 개선 방향 제시까지 포함하는 전체 개발 과정을 구현하는 것입니다.</p>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>프로젝트 메시지</h2>
         <div class="quote">
-          본 프로젝트는 AI를 이용해 주가를 완벽하게 예측하는 서비스를 만드는 것이 아니라,
-          뉴스 감성분석과 다양한 데이터 특성이 주가 예측에 어떤 영향을 주는지 실험하고,
-          그 결과와 한계를 사용자에게 설명할 수 있는 AI 기반 주식 어드바이저 서비스를 구현하는 것을 목표로 합니다.
+          본 프로젝트는 AI로 주가를 완벽하게 예측하는 것이 아니라, 뉴스 감성분석과 데이터 Feature가
+          주가 예측에 어떤 영향을 주는지 실험하고 그 결과와 한계를 설명하는 서비스를 구현하는 것을 목표로 합니다.
         </div>
       </section>
 
       <section class="section">
-        <h2>1차 프로젝트 구현 범위</h2>
-        <div class="two-col">
-          <div class="callout">
-            <strong>필수 구현</strong>
-            <p>뉴스 수집, 전처리, 감성분석, DB 저장, 주가 데이터 저장, 회귀모델 학습, Flask 화면, LLM 설명을 구현합니다.</p>
-          </div>
-          <div class="callout gold">
-            <strong>결과 분석</strong>
-            <p>예측값을 정답처럼 제공하지 않고, 실제 결과와 비교해 모델의 한계와 개선 방향을 정리합니다.</p>
-          </div>
-        </div>
-        <p><a href="research_direction.html">연구 방향 페이지에서 연구 질문과 실험 설계를 자세히 확인할 수 있습니다.</a></p>
-        <p><a href="mvp_scope.html">MVP 범위 페이지에서 게임 카테고리 기준 완료 조건을 확인할 수 있습니다.</a></p>
-      </section>
-
-      <section class="section">
-        <h2>타겟 사용자</h2>
+        <h2>프로젝트 목표</h2>
         <div class="summary-grid">
-          <div class="summary-item">
-            <strong>주식 초보자</strong>
-            <span>뉴스와 주가 흐름을 한 화면에서 이해하고 싶은 사용자</span>
-          </div>
-          <div class="summary-item">
-            <strong>시간이 부족한 투자자</strong>
-            <span>종목 관련 뉴스 분위기를 빠르게 요약해서 보고 싶은 사용자</span>
-          </div>
-          <div class="summary-item">
-            <strong>근거 중심 사용자</strong>
-            <span>리딩방 의존을 줄이고 데이터 기반 판단을 늘리고 싶은 사용자</span>
-          </div>
+          <div class="summary-item"><strong>데이터 흐름 구현</strong><span>뉴스 수집부터 Flask 출력까지 연결합니다.</span></div>
+          <div class="summary-item"><strong>Feature 설계</strong><span>감성점수, 주가, 뉴스 개수, 키워드 정보를 모델 입력으로 구성합니다.</span></div>
+          <div class="summary-item"><strong>결과 설명</strong><span>LLM은 예측 모델이 아니라 분석 결과를 설명하는 역할로 제한합니다.</span></div>
         </div>
       </section>
 
       <section class="section">
-        <h2>서비스 핵심 흐름</h2>
+        <h2>핵심 아이디어</h2>
         <div class="flow">
           <div class="lane">
-            <h3>데이터 수집</h3>
-            <div class="step"><strong>뉴스 수집</strong><small>크롤링 또는 뉴스 API</small></div>
-            <div class="step"><strong>주가 수집</strong><small>일자, 종가, 등락률, 거래량</small></div>
-            <div class="step"><strong>전처리</strong><small>중복 제거, 날짜 정리, 종목 매핑</small></div>
+            <h3>뉴스를 데이터로 바꾸기</h3>
+            <div class="step"><strong>수집</strong><small>게임 카테고리 뉴스부터 시작</small></div>
+            <div class="step"><strong>요약</strong><small>원문보다 요약본을 감성분석 입력으로 사용</small></div>
+            <div class="step"><strong>감성점수</strong><small>회귀모델 Feature로 활용</small></div>
           </div>
           <div class="lane">
-            <h3>AI 분석</h3>
-            <div class="step"><strong>감성분석</strong><small>긍정, 부정, 중립 점수 생성</small></div>
-            <div class="step"><strong>특성 결합</strong><small>감성점수와 주가 데이터 결합</small></div>
-            <div class="step"><strong>예측 기능</strong><small>회귀모델 또는 프로젝트 범위 내 예측값 생성</small></div>
+            <h3>주가 예측 실험</h3>
+            <div class="step"><strong>최근 3일 Window</strong><small>입력 데이터 구조 고정</small></div>
+            <div class="step"><strong>단일 예측 목표</strong><small>MVP에서는 하나의 y만 선택</small></div>
+            <div class="step"><strong>3개 모델 비교</strong><small>모델 성능보다 흐름 검증 우선</small></div>
           </div>
           <div class="lane">
-            <h3>웹 서비스</h3>
-            <div class="step"><strong>종목 검색</strong><small>기업명 또는 종목명 입력</small></div>
-            <div class="step"><strong>시각화</strong><small>뉴스 목록, 감성 흐름, 예측 결과</small></div>
-            <div class="step"><strong>LLM 설명</strong><small>결과와 근거를 쉬운 문장으로 요약</small></div>
+            <h3>서비스로 확인</h3>
+            <div class="step"><strong>DB 공유</strong><small>뉴스, 감성, 예측 결과를 중앙 저장</small></div>
+            <div class="step"><strong>Flask 출력</strong><small>데이터 전달 여부를 확인</small></div>
+            <div class="step"><strong>LLM 설명</strong><small>결과와 한계를 쉬운 문장으로 설명</small></div>
           </div>
         </div>
       </section>
 
       <section class="section">
-        <h2>향후 연구 및 확장</h2>
-        <p>
-          자동 재학습, 고도화된 RAG, 벡터DB, 관리자 페이지, 다단계 Baseline 비교 등은 1차 프로젝트 이후의
-          확장 가능 기능으로 분리합니다.
-        </p>
+        <h2>개발 철학</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>원칙</th><th>의미</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>정확한 예측보다 구조 검증</td><td>모델 성능보다 데이터가 끝까지 흐르는지 먼저 확인합니다.</td></tr>
+              <tr><td>감성분석은 Feature 생성 과정</td><td>감성분석 자체가 목적이 아니라 회귀모델 입력을 만들기 위한 단계입니다.</td></tr>
+              <tr><td>모델은 분리해서 관리</td><td>카테고리별 감성모델, 예측 목표별 회귀모델을 분리합니다.</td></tr>
+              <tr><td>확장 가능한 구조</td><td>새 카테고리, 새 Feature, 새 모델을 기존 구조에 덧붙일 수 있게 설계합니다.</td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <section class="section">
-        <h2>GitHub Pages 경로</h2>
-        <p>이 문서 사이트는 저장소 루트 기준 <code>blueprint/</code> 폴더에 배치했습니다.</p>
-        <pre><code>https://&lt;github-id&gt;.github.io/&lt;repository-name&gt;/blueprint/</code></pre>
+        <h2>문서 읽는 순서</h2>
+        <div class="summary-grid">
+          <div class="summary-item"><strong>1. 전체 아키텍처</strong><span>서비스 계층과 데이터 흐름을 확인합니다.</span></div>
+          <div class="summary-item"><strong>2. MVP 구현 계획</strong><span>이번 단계에서 구현할 범위와 완료 조건을 확인합니다.</span></div>
+          <div class="summary-item"><strong>3. 모델 설계</strong><span>뉴스 처리, Feature, 감성모델, 회귀모델 구조를 확인합니다.</span></div>
+        </div>
       </section>
-
-      <p class="footer-note">초안 문서입니다. 팀 회의에서 기능 범위와 구현 가능성을 조정하며 계속 업데이트합니다.</p>
     </main>
   </div>
   <script src="assets/script.js"></script>
