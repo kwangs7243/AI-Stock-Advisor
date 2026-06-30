@@ -51,34 +51,143 @@
       </section>
 
       <section class="section">
-        <h2>주요 테이블 후보</h2>
+        <h2>ERD 관계도</h2>
+        <p>
+          DB는 종목을 중심으로 뉴스, 감성분석 결과, 주가 데이터, 예측 결과를 연결합니다.
+          감성분석과 예측에는 어떤 모델이 사용되었는지도 함께 기록합니다.
+        </p>
+        <div class="mermaid-wrap">
+          <pre class="mermaid">
+erDiagram
+  STOCK ||--o{ NEWS : "has"
+  NEWS ||--|| SENTIMENT : "analyzed as"
+  STOCK ||--o{ STOCK_PRICE : "has"
+  STOCK ||--o{ PREDICTION : "has"
+  MODEL ||--o{ SENTIMENT : "used for"
+  MODEL ||--o{ PREDICTION : "used for"
+
+  STOCK {
+    string stock_code PK "종목 코드"
+    string stock_name "종목명"
+    string market "시장 구분"
+  }
+
+  NEWS {
+    int news_id PK "뉴스 ID"
+    string stock_code FK "관련 종목 코드"
+    date published_at "발행일"
+    string title "뉴스 제목"
+    text summary "뉴스 요약"
+    string url "뉴스 URL"
+  }
+
+  SENTIMENT {
+    int sentiment_id PK "감성분석 ID"
+    int news_id FK "뉴스 ID"
+    int model_id FK "사용 모델 ID"
+    float sentiment_score "감성 점수"
+    float positive_prob "긍정 확률"
+    float negative_prob "부정 확률"
+    string label "감성 라벨"
+    datetime analyzed_at "분석 시각"
+  }
+
+  STOCK_PRICE {
+    int price_id PK "주가 ID"
+    string stock_code FK "종목 코드"
+    date trade_date "거래일"
+    int open_price "시가"
+    int high_price "고가"
+    int low_price "저가"
+    int close_price "종가"
+    int volume "거래량"
+    float change_rate "등락률"
+  }
+
+  PREDICTION {
+    int prediction_id PK "예측 ID"
+    string stock_code FK "종목 코드"
+    int model_id FK "사용 모델 ID"
+    date predicted_at "예측 생성일"
+    date target_date "예측 대상일"
+    int predicted_price "예측 가격"
+    string predicted_direction "예측 방향"
+    float confidence "신뢰도"
+  }
+
+  MODEL {
+    int model_id PK "모델 ID"
+    string model_name "모델명"
+    string model_type "모델 유형"
+    string model_version "모델 버전"
+    string saved_path "저장 경로"
+    bool is_active "사용 여부"
+    datetime created_at "생성 시각"
+  }
+          </pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>주요 테이블과 컬럼</h2>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
                 <th>테이블</th>
                 <th>역할</th>
-                <th>주요 컬럼 후보</th>
+                <th>주요 컬럼</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td>stocks</td><td>종목 기본 정보</td><td>stock_id, stock_code, company_name, market</td></tr>
-              <tr><td>news</td><td>뉴스 원문과 메타데이터</td><td>news_id, stock_id, title, content, url, publisher, published_at</td></tr>
-              <tr><td>sentiment_results</td><td>뉴스별 감성분석 결과</td><td>result_id, news_id, label, score, model_version</td></tr>
-              <tr><td>stock_prices</td><td>일자별 주가 데이터</td><td>price_id, stock_id, date, close_price, change_rate, volume</td></tr>
-              <tr><td>predictions</td><td>1차 프로젝트 예측 참고값 저장</td><td>prediction_id, stock_id, base_date, predicted_value, model_version</td></tr>
-              <tr><td>prediction_feedback</td><td>향후 확장을 고려한 예측 결과 비교 기록</td><td>feedback_id, prediction_id, actual_value, error_value, note</td></tr>
-              <tr><td>chat_logs</td><td>LLM 설명 또는 질문 기록</td><td>log_id, stock_id, question, answer, created_at</td></tr>
+              <tr><td>STOCK</td><td>종목 기준 테이블</td><td>stock_code, stock_name, market</td></tr>
+              <tr><td>NEWS</td><td>종목과 연결된 뉴스 데이터</td><td>news_id, stock_code, published_at, title, summary, url</td></tr>
+              <tr><td>SENTIMENT</td><td>뉴스별 감성분석 결과</td><td>sentiment_id, news_id, model_id, sentiment_score, positive_prob, negative_prob, label, analyzed_at</td></tr>
+              <tr><td>STOCK_PRICE</td><td>일자별 주가 데이터</td><td>price_id, stock_code, trade_date, open_price, high_price, low_price, close_price, volume, change_rate</td></tr>
+              <tr><td>PREDICTION</td><td>회귀모델 예측 결과</td><td>prediction_id, stock_code, model_id, predicted_at, target_date, predicted_price, predicted_direction, confidence</td></tr>
+              <tr><td>MODEL</td><td>감성분석/회귀모델 정보</td><td>model_id, model_name, model_type, model_version, saved_path, is_active, created_at</td></tr>
             </tbody>
           </table>
         </div>
+      </section>
+
+      <section class="section">
+        <h2>테이블 역할 설명</h2>
+        <div class="summary-grid">
+          <div class="summary-item">
+            <strong>STOCK</strong>
+            <span>분석할 종목의 기본 정보를 저장합니다. 모든 뉴스, 주가, 예측 결과는 종목 코드를 기준으로 연결됩니다.</span>
+          </div>
+          <div class="summary-item">
+            <strong>NEWS</strong>
+            <span>종목과 관련된 뉴스 제목, 요약, 발행일, URL을 저장합니다. 감성분석의 입력 데이터가 됩니다.</span>
+          </div>
+          <div class="summary-item">
+            <strong>SENTIMENT</strong>
+            <span>뉴스 1건을 감성분석한 결과입니다. 감성점수, 긍정/부정 확률, 라벨을 저장합니다.</span>
+          </div>
+          <div class="summary-item">
+            <strong>STOCK_PRICE</strong>
+            <span>날짜별 시가, 고가, 저가, 종가, 거래량, 등락률을 저장합니다. 회귀모델의 학습 데이터로 사용됩니다.</span>
+          </div>
+          <div class="summary-item">
+            <strong>PREDICTION</strong>
+            <span>회귀모델이 만든 예측 결과를 저장합니다. 어떤 종목을 언제 예측했는지, 예측 가격과 방향을 기록합니다.</span>
+          </div>
+          <div class="summary-item">
+            <strong>MODEL</strong>
+            <span>감성분석 모델과 회귀모델의 이름, 유형, 버전, 저장 경로를 관리합니다. 어떤 모델이 어떤 결과를 만들었는지 추적합니다.</span>
+          </div>
+        </div>
         <p>
-          <code>prediction_feedback</code> 테이블은 현재 프로젝트의 자동 피드백 API 구현 대상이 아니라,
-          예측값과 실제 결과를 비교해 모델의 한계와 개선 방향을 분석하기 위한 향후 확장 설계입니다.
+          향후 예측값과 실제 결과를 비교하는 기능이 필요해지면 <code>prediction_feedback</code> 같은 확장 테이블을
+          추가할 수 있습니다. 현재 ERD는 1차 프로젝트의 핵심 데이터 흐름을 우선 표현합니다.
         </p>
       </section>
     </main>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: "base" });</script>
   <script src="assets/script.js"></script>
 </body>
 </html>
