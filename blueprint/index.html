@@ -1,112 +1,14 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Overview | AI Stock Advisor Blueprint</title>
-  <link rel="stylesheet" href="assets/style.css">
-</head>
-<body>
-  <div class="shell">
-    <aside class="sidebar">
-      <div class="brand">
-        <p class="brand-title">AI Stock Advisor Blueprint</p>
-        <p class="brand-subtitle">뉴스 감성분석 기반 연구형 주식 어드바이저</p>
-      </div>
-      <nav class="nav" aria-label="문서 메뉴">
-        <a href="index.html">프로젝트 소개</a>
-        <a href="architecture.html">전체 아키텍처</a>
-        <a href="mvp_scope.html">MVP 구현 계획</a>
-        <a href="model_pipeline.html">모델 설계</a>
-        <a href="github_strategy.html">GitHub 협업</a>
-        <a href="future_plan.html">향후 확장</a>
-        <a href="project_rules.html">프로젝트 규칙</a>
-        <a href="research_direction.html">연구 방향</a>
-        <a href="requirements.html">기능 요구사항</a>
-        <a href="database.html">DB 설계</a>
-        <a href="api.html">API 설계</a>
-        <a href="schedule.html">일정 계획</a>
-      </nav>
-    </aside>
-
-    <main class="content">
-      <header class="page-header">
-        <p class="eyebrow">Project Overview</p>
-        <h1>AI 뉴스 감성분석 기반 주식 어드바이저</h1>
-        <p class="lead">
-          뉴스 감성분석과 주가 데이터를 결합해 예측 가능성과 한계를 확인하고,
-          그 결과를 사용자가 이해할 수 있도록 설명하는 연구형 서비스 프로젝트입니다.
-        </p>
-      </header>
-
-      <section class="section">
-        <h2>프로젝트 목적</h2>
-        <div class="quote">
-          본 프로젝트는 AI로 주가를 완벽하게 예측하는 것이 아니라, 뉴스 감성분석과 데이터 Feature가
-          주가 예측에 어떤 영향을 주는지 실험하고 그 결과와 한계를 설명하는 서비스를 구현하는 것을 목표로 합니다.
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>프로젝트 목표</h2>
-        <div class="summary-grid">
-          <div class="summary-item"><strong>데이터 흐름 구현</strong><span>뉴스 수집부터 Flask 출력까지 연결합니다.</span></div>
-          <div class="summary-item"><strong>Feature 설계</strong><span>감성점수, 주가, 뉴스 개수, 키워드 정보를 모델 입력으로 구성합니다.</span></div>
-          <div class="summary-item"><strong>결과 설명</strong><span>LLM은 예측 모델이 아니라 분석 결과를 설명하는 역할로 제한합니다.</span></div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>핵심 아이디어</h2>
-        <div class="flow">
-          <div class="lane">
-            <h3>뉴스를 데이터로 바꾸기</h3>
-            <div class="step"><strong>수집</strong><small>게임 카테고리 뉴스부터 시작</small></div>
-            <div class="step"><strong>요약</strong><small>원문보다 요약본을 감성분석 입력으로 사용</small></div>
-            <div class="step"><strong>감성점수</strong><small>회귀모델 Feature로 활용</small></div>
-          </div>
-          <div class="lane">
-            <h3>주가 예측 실험</h3>
-            <div class="step"><strong>최근 3일 Window</strong><small>입력 데이터 구조 고정</small></div>
-            <div class="step"><strong>단일 예측 목표</strong><small>MVP에서는 하나의 y만 선택</small></div>
-            <div class="step"><strong>3개 모델 비교</strong><small>모델 성능보다 흐름 검증 우선</small></div>
-          </div>
-          <div class="lane">
-            <h3>서비스로 확인</h3>
-            <div class="step"><strong>DB 공유</strong><small>뉴스, 감성, 예측 결과를 중앙 저장</small></div>
-            <div class="step"><strong>Flask 출력</strong><small>데이터 전달 여부를 확인</small></div>
-            <div class="step"><strong>LLM 설명</strong><small>결과와 한계를 쉬운 문장으로 설명</small></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>개발 철학</h2>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr><th>원칙</th><th>의미</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>정확한 예측보다 구조 검증</td><td>모델 성능보다 데이터가 끝까지 흐르는지 먼저 확인합니다.</td></tr>
-              <tr><td>감성분석은 Feature 생성 과정</td><td>감성분석 자체가 목적이 아니라 회귀모델 입력을 만들기 위한 단계입니다.</td></tr>
-              <tr><td>모델은 분리해서 관리</td><td>카테고리별 감성모델, 예측 목표별 회귀모델을 분리합니다.</td></tr>
-              <tr><td>확장 가능한 구조</td><td>새 카테고리, 새 Feature, 새 모델을 기존 구조에 덧붙일 수 있게 설계합니다.</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>문서 읽는 순서</h2>
-        <div class="summary-grid">
-          <div class="summary-item"><strong>1. 전체 아키텍처</strong><span>서비스 계층과 데이터 흐름을 확인합니다.</span></div>
-          <div class="summary-item"><strong>2. MVP 구현 계획</strong><span>이번 단계에서 구현할 범위와 완료 조건을 확인합니다.</span></div>
-          <div class="summary-item"><strong>3. 모델 설계</strong><span>뉴스 처리, Feature, 감성모델, 회귀모델 구조를 확인합니다.</span></div>
-        </div>
-      </section>
-    </main>
-  </div>
-  <script src="assets/script.js"></script>
-</body>
-</html>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>프로젝트 소개 | PILOS Blueprint Ver1</title><link rel="stylesheet" href="assets/style.css"></head><body>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a><div class="shell"><aside class="sidebar"><div class="brand"><p class="brand-title">PILOS Blueprint Ver1</p><p class="brand-subtitle">구현 사실과 계획을 구분한 문서 스냅샷</p></div><button class="menu-toggle" type="button" aria-controls="doc-nav" aria-expanded="false">문서 메뉴 열기/닫기</button><nav id="doc-nav" class="nav" aria-label="문서 메뉴"><a href="index.html">프로젝트 소개 · 구현 현황</a><a href="architecture.html">As-Is / Target 아키텍처</a><a href="mvp_scope.html">MVP 범위</a><a href="model_pipeline.html">데이터·모델 파이프라인</a><a href="database.html">DB 계약</a><a href="api.html">API 계약</a><a href="research_direction.html">연구 결과</a><a href="requirements.html">요구사항·수용 기준</a><a href="schedule.html">일정·게이트</a><a href="github_strategy.html">GitHub·릴리스 전략</a><a href="llm.html">LLM 설명 계획</a><a href="future_plan.html">향후 확장</a><a href="project_rules.html">프로젝트 규칙</a></nav></aside>
+<main id="main" class="content"><header class="page-header"><p class="eyebrow">Project status</p><h1>통합 중인 뉴스·감성 연구 파이프라인과 주가 대시보드 MVP</h1><p class="lead">작동 가능한 부분 모듈과 대시보드 데모가 있지만, 재현 가능한 종단간 AI Stock Advisor MVP는 아직 완성되지 않았습니다.</p><div class="snapshot"><strong>Blueprint Ver1 · Snapshot: 2026-07-10</strong> — 정적 소스와 저장된 실험 결과에 근거하며 런타임 실행을 보증하지 않습니다.</div></header>
+<section class="section"><h2>상태 읽는 법</h2><div class="legend"><span class="status connected">연동 완료</span><span class="status offline">오프라인 구현</span><span class="status experiment">실험 브랜치</span><span class="status mock">목업</span><span class="status planned">계획</span><span class="status verify">실행 검증 필요</span></div><p>“소스가 존재함”과 “재현 가능하게 실행됨”을 분리합니다. 보조 배지는 이번 검토에서 빌드·서버·DB·모델을 실행하지 않았다는 뜻입니다.</p></section>
+<section class="section"><h2>현재 구현 현황</h2><div class="table-wrap status-matrix"><table><thead><tr><th>영역</th><th>상태</th><th>현재 사실</th></tr></thead><tbody>
+<tr><td data-label="영역">Flask 주가표</td><td data-label="상태"><span class="status connected">연동 완료</span> <span class="status verify">feature 브랜치</span></td><td data-label="현재 사실">공유 MySQL → <code>GET /api/stockTable</code> → 기준일 선택·정렬 표. 현재 유일한 사용자 연결 vertical slice입니다.</td></tr>
+<tr><td data-label="영역">20개 테마 수집</td><td data-label="상태"><span class="status offline">오프라인 구현</span></td><td data-label="현재 사실">주가·뉴스·본문 수집 코드가 CSV를 생성하지만 DB 자동 적재는 연결되지 않았습니다.</td></tr>
+<tr><td data-label="영역">뉴스 요약·감성</td><td data-label="상태"><span class="status offline">오프라인 구현</span> <span class="status verify">실행 검증 필요</span></td><td data-label="현재 사실">KoBERT 추출요약과 단일 KR-FinBERT 감성 배치·DB upsert 소스가 있습니다. 통합·운영 검증이 필요합니다.</td></tr>
+<tr><td data-label="영역">예측</td><td data-label="상태"><span class="status experiment">실험 브랜치</span></td><td data-label="현재 사실">방향 분류와 RecentFlow 회귀 R&amp;D입니다. 기준선 통과, DB 저장, API 서빙이 확정되지 않았습니다.</td></tr>
+<tr><td data-label="영역">TOP3·AI 분석·검색·인증</td><td data-label="상태"><span class="status mock">목업</span></td><td data-label="현재 사실">현재 UI 또는 고정 데이터만 존재합니다. ‘AI 추천’이 아닌 ‘AI 분석 참고값’ 시안입니다.</td></tr>
+<tr><td data-label="영역">LLM·CI·배포</td><td data-label="상태"><span class="status planned">계획</span></td><td data-label="현재 사실">구현 API, 자동 테스트, CI, production 배포 기반이 없습니다.</td></tr></tbody></table></div></section>
+<section class="section"><h2>현재 연결과 단절</h2><div class="two-col"><div class="callout"><h3>연결된 흐름</h3><p><code>stock / stock_price</code> → Flask API → 날짜 선택 → 주가 표 → 브라우저 정렬</p><p><code>news.clean_article_text</code> → KoBERT 요약 → <code>news_summary</code> → KR-FinBERT → <code>sentiment</code>는 별도 배치 소스로 존재합니다.</p></div><div class="callout danger"><h3>E2E 완료 아님</h3><p>수집 CSV → DB 적재, 감성·예측 → Flask API/UI 연결이 끊겨 있습니다. 예측 저장 Job과 LLM 설명 API도 없습니다.</p></div></div></section>
+<section class="section"><h2>다음 P0</h2><div class="summary-grid"><div class="summary-item"><strong>1. 보안·기준선 고정</strong><span>자격증명 hardening, AI/Web 브랜치와 호환 커밋 manifest 확정</span></div><div class="summary-item"><strong>2. DB 계약 고정</strong><span>canonical schema, migration, model seed/revision, 요약 길이 계약 확정</span></div><div class="summary-item"><strong>3. 적재 vertical slice</strong><span>게임 파일럿 수집 결과를 표준화해 idempotent MySQL upsert까지 연결</span></div></div></section>
+<p class="footer-note">투자 판단을 대신하는 서비스가 아니며, 문서의 상태는 2026-07-10 정적 검토 기준입니다.</p></main></div><script src="assets/script.js"></script></body></html>

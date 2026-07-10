@@ -1,26 +1,45 @@
-# AI Stock Advisor Research
+# PILOS AI Stock Advisor — Blueprint Ver1
 
-AI 뉴스 감성분석 기반 주식 어드바이저 연구 프로젝트입니다.
+뉴스·감성 연구 파이프라인과 Flask 주가 대시보드의 현재 구현 상태, 끊긴 통합 구간, 다음 수용 기준을 구분해 기록한 문서 사이트입니다.
 
-이 프로젝트는 주가를 정확히 맞히는 상용 투자 서비스를 목표로 하기보다, 1차 프로젝트 구현 결과를 통해 뉴스 감성점수 기반 예측의 가능성과 한계를 확인하고 향후 개선 방향을 제시하는 것을 목표로 합니다.
+- 공개 사이트: <https://kwangs7243.github.io/AI-Stock-Advisor/blueprint/index.html>
+- 문서 기준일: **2026-07-10**
+- 로컬 시작점: [blueprint/index.html](blueprint/index.html)
 
-## Blueprint
+> 이 문서는 정적 소스와 저장된 실험 출력을 검토한 snapshot입니다. 빌드·서버·DB·모델의 런타임 동작을 보증하지 않으며, 완성된 AI 투자 추천 서비스를 의미하지 않습니다.
 
-GitHub Pages 배포 시 설계 문서는 아래 경로에서 확인합니다.
+## 상태 용어
 
-```text
-https://<github-id>.github.io/<repository-name>/blueprint/
-```
+| 상태 | 의미 |
+|---|---|
+| 연동 완료 | 소스상 시작점부터 사용자 출력까지 연결됨 |
+| 오프라인 구현 | 독립 실행 코드가 있으나 서비스 흐름과 미연결 |
+| 실험 브랜치 | 별도 브랜치 또는 notebook의 R&D, 통합·서빙되지 않음 |
+| 목업 | UI만 있거나 고정 데이터를 사용 |
+| 계획 | 구현 근거 없음 |
+| 실행 검증 필요 | 이번 snapshot에서 런타임 검증하지 않은 보조 상태 |
 
-로컬에서는 [blueprint/index.html](blueprint/index.html)을 브라우저로 열면 됩니다.
+## 문서 지도
 
-문서 사이트는 다음 흐름으로 구성되어 있습니다.
+1. 프로젝트 소개·구현 현황
+2. As-Is / Target 아키텍처
+3. MVP 범위
+4. 데이터·모델 파이프라인
+5. DB 계약
+6. API 계약
+7. 연구 결과
+8. 요구사항·수용 기준
+9. 일정·게이트
+10. GitHub·릴리스 전략
+11. LLM 설명 계획
+12. 향후 확장
+13. 프로젝트 규칙
 
-- 프로젝트 소개: 목적, 목표, 핵심 아이디어, 개발 철학
-- 전체 아키텍처: Pipeline, 계층 구조, 데이터 흐름
-- MVP 구현 계획: 범위, 제외 범위, 단계별 작업, 완료 조건
-- 모델 설계: 뉴스 처리, 감성모델, Feature, 회귀모델, 데이터셋 구조
-- GitHub 협업: 브랜치 전략, 작업 흐름, 최소 폴더 구조
-- 향후 확장: 카테고리, Feature, 모델, 서비스 확장 방향
+## 구현 근거 저장소
 
-팀 회의에서 정한 게임 카테고리 MVP 범위와 완료 기준은 [blueprint/mvp_scope.html](blueprint/mvp_scope.html)에 정리되어 있습니다.
+Blueprint가 검토한 구현은 별도 두 저장소에 있습니다.
+
+- `pilos-ai`: 수집, 전처리, KoBERT 추출요약, KR-FinBERT 감성, 예측 R&D, DB 초안
+- `pilos-web`: Flask Repository/Service, `/api/stockTable`, 주가 대시보드와 목업 UI
+
+두 저장소는 하나의 릴리스 manifest나 공통 tag로 아직 묶여 있지 않습니다. 이 저장소의 기존 Git tag를 이동하거나 덮어쓰지 않습니다.

@@ -1,78 +1,12 @@
-﻿<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>API | AI Stock Advisor Blueprint</title>
-  <link rel="stylesheet" href="assets/style.css">
-</head>
-<body>
-  <div class="shell">
-    <aside class="sidebar">
-      <div class="brand">
-        <p class="brand-title">AI Stock Advisor Blueprint</p>
-        <p class="brand-subtitle">뉴스 감성분석 기반 연구형 주식 어드바이저</p>
-      </div>
-      <nav class="nav" aria-label="문서 메뉴">
-        <a href="index.html">프로젝트 소개</a>
-        <a href="architecture.html">전체 아키텍처</a>
-        <a href="mvp_scope.html">MVP 구현 계획</a>
-        <a href="model_pipeline.html">모델 설계</a>
-        <a href="github_strategy.html">GitHub 협업</a>
-        <a href="future_plan.html">향후 확장</a>
-        <a href="project_rules.html">프로젝트 규칙</a>
-        <a href="research_direction.html">연구 방향</a>
-        <a href="requirements.html">기능 요구사항</a>
-        <a href="database.html">DB 설계</a>
-        <a href="api.html">API 설계</a>
-        <a href="schedule.html">일정 계획</a>
-      </nav>
-    </aside>
-
-    <main class="content">
-      <header class="page-header">
-        <p class="eyebrow">Flask API</p>
-        <h1>API 설계 초안</h1>
-        <p class="lead">1차 프로젝트 화면 구현에 필요한 API 후보입니다. 자동 피드백 저장 API는 현재 구현 범위에서 제외합니다.</p>
-      </header>
-
-      <section class="section">
-        <h2>엔드포인트 후보</h2>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr><th>Method</th><th>Path</th><th>역할</th><th>응답 후보</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>GET</td><td>/api/stocks/search</td><td>종목 검색</td><td>종목 코드, 기업명, 시장</td></tr>
-              <tr><td>GET</td><td>/api/stocks/{stock_id}/news</td><td>관련 뉴스 조회</td><td>뉴스 목록, 감성 라벨, 점수</td></tr>
-              <tr><td>GET</td><td>/api/stocks/{stock_id}/sentiment</td><td>기간별 감성 흐름</td><td>날짜별 긍정/부정 비율, 종합 점수</td></tr>
-              <tr><td>GET</td><td>/api/stocks/{stock_id}/prediction</td><td>간단한 예측 참고 정보</td><td>예측값, 기준일, 모델 버전</td></tr>
-              <tr><td>POST</td><td>/api/llm/explain</td><td>AI 설명 생성</td><td>요약 설명, 참고 뉴스, 주의 문구</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>화면 구성 후보</h2>
-        <ul>
-          <li>검색 입력 영역</li>
-          <li>뉴스 목록과 감성 라벨</li>
-          <li>기간별 감성 흐름 그래프</li>
-          <li>예측 참고값과 주요 근거</li>
-          <li>LLM 설명 영역</li>
-        </ul>
-        <div class="callout gold">
-          <strong>Prediction Feedback 처리</strong>
-          <p>
-            현재 단계에서는 자동 API나 Ajax 기반 저장 기능으로 구현하지 않습니다. 발표와 결과 분석에서는 예측 결과와 실제 결과를 비교해
-            모델의 한계를 설명하고, 향후 개선 방향을 제시하는 연구 개념으로 다룹니다.
-          </p>
-        </div>
-      </section>
-    </main>
-  </div>
-  <script src="assets/script.js"></script>
-</body>
-</html>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>API 계약 | PILOS Blueprint Ver1</title><link rel="stylesheet" href="assets/style.css"></head><body><a class="skip-link" href="#main">본문으로 건너뛰기</a><div class="shell"><aside class="sidebar"><div class="brand"><p class="brand-title">PILOS Blueprint Ver1</p><p class="brand-subtitle">Snapshot: 2026-07-10</p></div><button class="menu-toggle" type="button" aria-controls="doc-nav" aria-expanded="false">문서 메뉴 열기/닫기</button><nav id="doc-nav" class="nav" aria-label="문서 메뉴"><a href="index.html">프로젝트 소개 · 구현 현황</a><a href="architecture.html">As-Is / Target 아키텍처</a><a href="mvp_scope.html">MVP 범위</a><a href="model_pipeline.html">데이터·모델 파이프라인</a><a href="database.html">DB 계약</a><a href="api.html">API 계약</a><a href="research_direction.html">연구 결과</a><a href="requirements.html">요구사항·수용 기준</a><a href="schedule.html">일정·게이트</a><a href="github_strategy.html">GitHub·릴리스 전략</a><a href="llm.html">LLM 설명 계획</a><a href="future_plan.html">향후 확장</a><a href="project_rules.html">프로젝트 규칙</a></nav></aside><main id="main" class="content"><header class="page-header"><p class="eyebrow">API contract</p><h1>현재 구현 API는 /api/stockTable 하나입니다</h1><p class="lead">문서에 있던 검색·뉴스·감성·예측·LLM endpoint는 후보일 뿐 구현되지 않았습니다. 현재 동작과 다음 계약을 구분합니다.</p><div class="snapshot">Blueprint Ver1 · Snapshot: 2026-07-10 · 정적 소스 검토 기준</div></header><section class="section"><h2>구현됨</h2><div class="table-wrap"><table><thead><tr><th>Method</th><th>Path</th><th>상태</th><th>동작</th></tr></thead><tbody><tr><td>GET</td><td><code>/</code></td><td><span class="status connected">연동 완료</span></td><td>Flask HTML shell</td></tr><tr><td>GET</td><td><code>/api/stockTable?priceDate=YYYY-MM-DD</code></td><td><span class="status connected">연동 완료</span> <span class="status verify">feature</span></td><td>날짜별 전체 주가표. 날짜 누락·유효하지 않음은 최신 적재일로 fallback</td></tr></tbody></table></div><h3>성공 응답 shape</h3><pre><code>{
+  "stocks": [{
+    "stock_code": "000000", "stock_name": "종목명",
+    "price_date": "YYYY-MM-DD", "current_price": 0,
+    "open_price": 0, "high_price": 0, "low_price": 0,
+    "close_price": 0, "volume": 0, "change_rate": 0.0,
+    "current_price_display": "0", "change_rate_display": "0.00%",
+    "change_rate_class": ""
+  }],
+  "priceDate": "YYYY-MM-DD",
+  "priceDates": ["YYYY-MM-DD"]
+}</code></pre><p>현행 camelCase 응답과 향후 naming convention은 계약 고정 단계에서 결정합니다.</p></section><section class="section"><h2>계획 endpoint</h2><div class="table-wrap"><table><thead><tr><th>Method</th><th>Path</th><th>상태</th></tr></thead><tbody><tr><td>GET</td><td><code>/api/stocks/search</code></td><td><span class="status planned">계획</span></td></tr><tr><td>GET</td><td><code>/api/stocks/{stock_id}/news</code></td><td><span class="status planned">계획</span></td></tr><tr><td>GET</td><td><code>/api/stocks/{stock_id}/sentiment</code></td><td><span class="status planned">계획</span></td></tr><tr><td>GET</td><td><code>/api/stocks/{stock_id}/prediction</code></td><td><span class="status planned">계획</span></td></tr><tr><td>POST</td><td><code>/api/llm/explain</code></td><td><span class="status planned">계획</span></td></tr></tbody></table></div></section><section class="section"><h2>권장 구현 순서</h2><ol><li><code>/api/stockTable</code> 오류·빈 상태·응답 계약과 route test</li><li>종목 검색 또는 선택 API</li><li>뉴스 + 특정 revision 요약 조회</li><li>기간별 감성 집계</li><li>검증된 prediction 조회</li><li>구조화 결과 기반 LLM 설명</li></ol><div class="callout warning"><p>모든 endpoint는 상태, 입력, 성공·오류·빈 응답, 데이터 기준일, 모델 버전을 함께 제공해야 합니다.</p></div></section></main></div><script src="assets/script.js"></script></body></html>
