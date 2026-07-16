@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>발표 준비 가이드 | PILOS Blueprint Ver1</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand"><p class="brand-title">PILOS Blueprint Ver1</p><p class="brand-subtitle">발표 안내와 기술 근거를 함께 보는 문서</p></div>
+    <button class="menu-toggle" type="button" aria-controls="doc-nav" aria-expanded="false">문서 메뉴 열기/닫기</button>
+    <nav id="doc-nav" class="nav" aria-label="문서 메뉴"><a href="index.html">프로젝트 소개</a><a href="presentation_guide.html">발표 준비 가이드</a><a href="architecture.html">현재 아키텍처</a><a href="mvp_scope.html">최종 MVP 범위</a><a href="model_pipeline.html">데이터·모델 파이프라인</a><a href="database.html">DB 계약</a><a href="api.html">화면·API 계약</a><a href="verification.html">실행·검증 근거</a><a href="research_direction.html">모델 연구 결과</a><a href="requirements.html">최종 요구사항 판정</a><a href="schedule.html">최종 검증 게이트</a><a href="github_strategy.html">저장소·스냅샷 전략</a><a href="llm.html">LLM 제외 범위</a><a href="future_plan.html">후속 개선 후보</a><a href="project_rules.html">프로젝트 문서 규칙</a></nav>
+  </aside>
+  <main id="main" class="content">
+    <header class="page-header">
+      <p class="eyebrow">Presentation guide</p>
+      <h1>팀장이 그대로 가져가 사용할 수 있는 발표 구성</h1>
+      <p class="lead">이 페이지는 기술 문서를 읽지 않아도 프로젝트의 문제, 해결 방법, 핵심 결과와 한계를 발표 순서대로 정리할 수 있도록 만든 안내서입니다.</p>
+      <div class="snapshot"><strong>3주 2일 팀 프로젝트 · 2026-07-16 기준</strong> · 상세 기술 근거는 각 문서에서 확인할 수 있습니다.</div>
+    </header>
+
+    <section class="section">
+      <h2>발표의 중심 문장</h2>
+      <p class="quote">“여러 곳에 흩어진 주가와 뉴스를 자동으로 수집하고, AI 분석 결과를 웹에서 한눈에 확인할 수 있도록 연결했습니다.”</p>
+      <p>발표 전체가 이 한 문장을 설명하도록 구성하면 됩니다. 기술명은 “어떻게 만들었는가”를 설명할 때만 보조로 사용합니다.</p>
+    </section>
+    <section class="section">
+      <h2>30초 프로젝트 소개</h2>
+      <div class="callout"><p>“주식 정보를 확인하려면 주가, 뉴스, 시장 분위기를 여러 곳에서 따로 찾아야 합니다. 저희 팀은 이 불편을 줄이기 위해 주가와 뉴스를 자동으로 모으고, 긴 뉴스에서 핵심 내용과 긍정·부정 흐름을 분석해 하나의 웹 화면에서 보여주는 PILOS를 만들었습니다. 3주 2일 동안 데이터 수집, AI 분석, 데이터베이스 저장, 웹 조회까지 전체 흐름을 구현했습니다.”</p></div>
+    </section>
+    <section class="section">
+      <h2>권장 발표 자료 구성</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>순서</th><th>슬라이드 제목</th><th>핵심 내용</th><th>가져갈 근거</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>프로젝트 소개</td><td>프로젝트명, 3주 2일 팀 프로젝트, 서비스 한 줄 설명</td><td><a href="index.html">프로젝트 소개</a></td></tr>
+          <tr><td>2</td><td>문제 정의</td><td>주가·뉴스가 흩어져 있고 많은 기사를 모두 읽기 어렵다는 문제</td><td><a href="index.html">문제와 해결 방법</a></td></tr>
+          <tr><td>3</td><td>서비스 목표</td><td>수집·분석·조회 과정을 자동화해 한 화면에서 전달</td><td><a href="mvp_scope.html">최종 MVP 범위</a></td></tr>
+          <tr><td>4</td><td>사용자 기능</td><td>대시보드, 종목 상세, 검색, 뉴스 분석, AI 분석 카드</td><td><a href="api.html">화면·API 계약</a></td></tr>
+          <tr><td>5</td><td>서비스 동작 과정</td><td>수집 → AI 분석 → DB 저장 → 웹 화면 제공</td><td><a href="architecture.html">현재 아키텍처</a></td></tr>
+          <tr><td>6</td><td>AI 활용</td><td>뉴스 핵심 문장 추출, 긍정·부정 분석, 방향·흐름 참고값 생성</td><td><a href="model_pipeline.html">데이터·모델 파이프라인</a></td></tr>
+          <tr><td>7</td><td>시연</td><td>대시보드 → 종목 상세 → AI 카드 → 검색 순서</td><td>실제 Web 화면</td></tr>
+          <tr><td>8</td><td>구현·검증 결과</td><td>테스트, DB 일치, 서버 자동 실행 로그</td><td><a href="verification.html">실행·검증 근거</a></td></tr>
+          <tr><td>9</td><td>한계와 개선 방향</td><td>예측 성능, 일부 외부 기능 검증 제한, 후속 개선 후보</td><td><a href="future_plan.html">후속 개선 후보</a></td></tr>
+          <tr><td>10</td><td>결론</td><td>짧은 기간 안에 데이터부터 서비스까지 하나의 흐름으로 연결</td><td><a href="requirements.html">최종 요구사항 판정</a></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <section class="section">
+      <h2>슬라이드에 바로 넣을 핵심 문장</h2>
+      <div class="two-col">
+        <div class="callout"><h3>문제 정의</h3><p>“주식 관련 정보가 여러 곳에 흩어져 있어 사용자가 종목의 흐름을 한 번에 파악하기 어렵습니다.”</p></div>
+        <div class="callout"><h3>해결 방법</h3><p>“주가와 뉴스를 자동으로 수집하고 AI 분석 결과를 하나의 웹 서비스에서 제공합니다.”</p></div>
+        <div class="callout"><h3>기술적 성과</h3><p>“데이터 수집부터 AI 분석, 데이터베이스 저장, 웹 조회까지 전체 서비스 흐름을 연결했습니다.”</p></div>
+        <div class="callout"><h3>결과의 의미</h3><p>“높은 투자 수익률을 증명한 프로젝트가 아니라, AI 분석 결과를 실제 서비스 화면까지 전달한 프로젝트입니다.”</p></div>
+      </div>
+    </section>
+    <section class="section">
+      <h2>시연 진행 문장</h2>
+      <ol class="gate-list">
+        <li><strong>대시보드</strong><br>“먼저 여러 종목과 테마의 최근 흐름을 한 화면에서 확인할 수 있습니다.”</li>
+        <li><strong>종목 상세</strong><br>“관심 종목을 선택하면 가격 변화와 뉴스 분위기를 함께 볼 수 있습니다.”</li>
+        <li><strong>AI 분석 카드</strong><br>“AI가 계산한 방향·흐름 참고값과 긍정·부정 뉴스를 함께 제공합니다.”</li>
+        <li><strong>검색</strong><br>“회사명이나 종목코드로 원하는 종목을 빠르게 찾을 수 있습니다.”</li>
+      </ol>
+    </section>
+    <section class="section">
+      <h2>기술 용어를 쉽게 바꾸는 법</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>기술 문서 표현</th><th>발표에서 먼저 사용할 표현</th></tr></thead>
+        <tbody>
+          <tr><td>자동화 파이프라인</td><td>데이터를 모으고 분석해 저장하는 자동 작업 순서</td></tr>
+          <tr><td>DB·MySQL</td><td>AI 결과와 웹 서비스가 함께 사용하는 데이터 저장소</td></tr>
+          <tr><td>API</td><td>저장된 데이터를 화면으로 전달하는 통로</td></tr>
+          <tr><td>SBERT 추출 요약</td><td>긴 뉴스에서 핵심 문장을 골라내는 AI</td></tr>
+          <tr><td>KR-FinBERT 감성 분석</td><td>금융 뉴스의 긍정·부정 분위기를 분류하는 AI</td></tr>
+          <tr><td>Direction·RecentFlow</td><td>다음 방향과 단기 흐름을 계산한 분석 참고값</td></tr>
+          <tr><td>멱등 upsert</td><td>자동 작업을 반복해도 같은 데이터가 불필요하게 중복되지 않도록 저장</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <section class="section">
+      <h2>예상 질문과 답변</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>질문</th><th>권장 답변</th></tr></thead>
+        <tbody>
+          <tr><td>이 서비스가 종목을 추천하나요?</td><td>아닙니다. 주가와 뉴스 분석 결과를 이해하기 쉽게 보여주는 교육용 분석 서비스입니다.</td></tr>
+          <tr><td>예측 정확도가 높은가요?</td><td>모델 실행과 결과 저장까지 구현했지만 현재 실험에서는 단순 기준선을 안정적으로 넘지 못해 참고값으로만 제공합니다.</td></tr>
+          <tr><td>실제로 자동 실행됐나요?</td><td>별도 Linux 서버의 첨부 로그 7건에서 전체 작업이 마지막 단계까지 종료된 것을 확인했습니다.</td></tr>
+          <tr><td>모든 뉴스 분석이 성공했나요?</td><td>아닙니다. 전체 자동 작업은 완료됐지만 일부 뉴스는 입력 품질과 처리 조건 때문에 개별 실패가 있었습니다.</td></tr>
+          <tr><td>AI와 웹은 어떻게 연결되나요?</td><td>AI가 분석 결과를 공용 데이터베이스에 저장하고, 웹 서비스가 그 결과를 읽어 화면에 보여줍니다.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <section class="section">
+      <h2>발표에서 피해야 할 표현</h2>
+      <div class="two-col">
+        <div class="callout danger"><h3>사용하지 않을 표현</h3><ul><li>주가를 정확히 예측합니다</li><li>모든 뉴스 분석에 성공했습니다</li><li>상용 서비스 수준으로 완성했습니다</li><li>AI가 매수 종목을 추천합니다</li></ul></div>
+        <div class="callout"><h3>대신 사용할 표현</h3><ul><li>분석 참고값을 제공합니다</li><li>자동화 흐름의 실행을 확인했습니다</li><li>교육용 최종 MVP를 구현했습니다</li><li>주가와 뉴스 정보를 한눈에 제공합니다</li></ul></div>
+      </div>
+    </section>
+    <section class="section">
+      <h2>발표 직전 체크리스트</h2>
+      <ul><li>첫 1분 안에 문제와 서비스를 기술 용어 없이 설명했는가</li><li>시연할 화면과 순서를 미리 고정했는가</li><li>숫자를 사용할 때 어떤 검증 근거인지 확인했는가</li><li>예측 모델의 실행과 성능을 구분해 설명했는가</li><li>팀 성과와 개인 역할을 섞어 말하지 않았는가</li><li>질문이 깊어질 때 상세 기술 페이지를 근거로 사용할 준비가 됐는가</li></ul>
+    </section>
+    <p class="footer-note">교육용 프로젝트이며 투자 판단이나 수익을 보장하는 서비스가 아닙니다.</p>
+  </main>
+</div>
+<script src="assets/script.js"></script>
+</body>
+</html>

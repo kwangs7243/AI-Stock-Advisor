@@ -3,64 +3,97 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>프로젝트 소개·구현 현황 | PILOS Blueprint Ver1</title>
+  <title>프로젝트 소개 | PILOS Blueprint Ver1</title>
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 <a class="skip-link" href="#main">본문으로 건너뛰기</a>
 <div class="shell">
   <aside class="sidebar">
-    <div class="brand"><p class="brand-title">PILOS Blueprint Ver1</p><p class="brand-subtitle">팀 프로젝트 최종 MVP 기술 문서</p></div>
+    <div class="brand"><p class="brand-title">PILOS Blueprint Ver1</p><p class="brand-subtitle">발표 안내와 기술 근거를 함께 보는 문서</p></div>
     <button class="menu-toggle" type="button" aria-controls="doc-nav" aria-expanded="false">문서 메뉴 열기/닫기</button>
-    <nav id="doc-nav" class="nav" aria-label="문서 메뉴"><a href="index.html">프로젝트 소개·구현 현황</a><a href="architecture.html">현재 아키텍처</a><a href="mvp_scope.html">최종 MVP 범위</a><a href="model_pipeline.html">데이터·모델 파이프라인</a><a href="database.html">DB 계약</a><a href="api.html">화면·API 계약</a><a href="verification.html">실행·검증 근거</a><a href="research_direction.html">모델 연구 결과</a><a href="requirements.html">최종 요구사항 판정</a><a href="schedule.html">최종 검증 게이트</a><a href="github_strategy.html">저장소·스냅샷 전략</a><a href="llm.html">LLM 제외 범위</a><a href="future_plan.html">후속 개선 후보</a><a href="project_rules.html">프로젝트 문서 규칙</a></nav>
+    <nav id="doc-nav" class="nav" aria-label="문서 메뉴"><a href="index.html">프로젝트 소개</a><a href="presentation_guide.html">발표 준비 가이드</a><a href="architecture.html">현재 아키텍처</a><a href="mvp_scope.html">최종 MVP 범위</a><a href="model_pipeline.html">데이터·모델 파이프라인</a><a href="database.html">DB 계약</a><a href="api.html">화면·API 계약</a><a href="verification.html">실행·검증 근거</a><a href="research_direction.html">모델 연구 결과</a><a href="requirements.html">최종 요구사항 판정</a><a href="schedule.html">최종 검증 게이트</a><a href="github_strategy.html">저장소·스냅샷 전략</a><a href="llm.html">LLM 제외 범위</a><a href="future_plan.html">후속 개선 후보</a><a href="project_rules.html">프로젝트 문서 규칙</a></nav>
   </aside>
   <main id="main" class="content">
     <header class="page-header">
-      <p class="eyebrow">Project outcome</p>
-      <h1>3주 2일 동안 완성한 데이터 기반 주식 분석 서비스 MVP</h1>
-      <p class="lead">PILOS는 뉴스·주가 수집부터 AI 분석 결과 저장, Flask 웹 조회까지 공용 MySQL을 중심으로 연결한 교육용 팀 프로젝트입니다.</p>
-      <div class="snapshot"><strong>Blueprint Ver1 · Snapshot: 2026-07-16</strong> · <code>pilos-ai d564315</code> · <code>pilos-web 6ddc75b</code></div>
+      <p class="eyebrow">Team project overview</p>
+      <h1>흩어진 주식 정보와 뉴스를 한 화면에서 이해하도록 돕는 서비스</h1>
+      <p class="lead">PILOS는 주가와 뉴스를 자동으로 모으고, AI로 핵심 내용과 분위기를 분석해 웹 화면으로 보여주는 교육용 주식 분석 서비스입니다.</p>
+      <div class="snapshot"><strong>3주 2일 팀 프로젝트 · 2026-07-16 기준</strong> · 상세 기술 근거는 각 문서에서 확인할 수 있습니다.</div>
     </header>
 
     <section class="section">
-      <h2>프로젝트 한눈에 보기</h2>
+      <h2>어떤 문제를 해결하려 했나요?</h2>
       <div class="summary-grid">
-        <div class="summary-item"><strong>범위</strong><span>20개 테마·100개 종목을 대상으로 수집, 분석, 조회 흐름 구성</span></div>
-        <div class="summary-item"><strong>AI 파이프라인</strong><span>뉴스 요약·감성 분석·Features·Direction·RecentFlow 결과 적재</span></div>
-        <div class="summary-item"><strong>Web 서비스</strong><span>5개 화면과 9개 JSON API로 주가·뉴스·AI 분석 결과 제공</span></div>
+        <div class="summary-item"><strong>정보가 흩어져 있습니다</strong><span>주가, 관련 뉴스, 시장 분위기를 여러 곳에서 따로 찾아야 합니다.</span></div>
+        <div class="summary-item"><strong>뉴스가 너무 많습니다</strong><span>많은 기사를 모두 읽고 중요한 내용을 찾는 데 시간이 걸립니다.</span></div>
+        <div class="summary-item"><strong>한눈에 보기 어렵습니다</strong><span>숫자와 뉴스가 서로 떨어져 있어 종목의 최근 흐름을 이해하기 어렵습니다.</span></div>
       </div>
     </section>
     <section class="section">
-      <h2>최종 구현 상태</h2>
+      <h2>우리 팀의 해결 방법</h2>
+      <div class="diagram"><pre>주가와 뉴스를 자동으로 모음
+        ↓
+긴 뉴스에서 핵심 문장을 추리고 긍정·부정 흐름을 분석
+        ↓
+분석 결과를 데이터베이스에 저장
+        ↓
+웹 대시보드와 종목 상세 화면에서 한 번에 확인</pre></div>
+      <p>발표에서는 모델명이나 테이블명보다 <strong>“수집 → 분석 → 저장 → 화면 제공”</strong>의 흐름을 먼저 설명하면 됩니다.</p>
+    </section>
+    <section class="section">
+      <h2>사용자는 무엇을 할 수 있나요?</h2>
       <div class="table-wrap status-matrix"><table>
-        <thead><tr><th>영역</th><th>판정</th><th>확인된 사실</th></tr></thead>
+        <thead><tr><th>사용자 기능</th><th>쉽게 설명하면</th><th>현재 결과</th></tr></thead>
         <tbody>
-          <tr><td data-label="영역">주가·뉴스 수집 및 적재</td><td data-label="판정"><span class="status connected">운영 로그 확인</span></td><td data-label="확인된 사실">Linux 서버의 LIVE_BRIEFING·DAILY_PREDICTION 실행 로그 7건이 최종 SUCCESS로 종료됐습니다.</td></tr>
-          <tr><td data-label="영역">요약·감성 분석</td><td data-label="판정"><span class="status offline">구현·운영</span> <span class="status verify">레코드 실패 존재</span></td><td data-label="확인된 사실">SBERT 추출 요약과 KR-FinBERT 감성 분석 결과가 DB에 적재됩니다. 일부 뉴스는 입력 품질·모델 처리 조건으로 요약 실패가 기록됩니다.</td></tr>
-          <tr><td data-label="영역">Direction·RecentFlow</td><td data-label="판정"><span class="status experiment">성능 미검증</span></td><td data-label="확인된 사실">모델 실행과 결과 저장은 확인했으나 저장된 실험에서 다수 클래스 기준선을 안정적으로 넘지 못했습니다.</td></tr>
-          <tr><td data-label="영역">Flask 화면·읽기 API</td><td data-label="판정"><span class="status connected">구현·검증</span></td><td data-label="확인된 사실">주요 읽기 요청 8건이 연결 DB 환경에서 모두 HTTP 200을 반환했습니다.</td></tr>
-          <tr><td data-label="영역">인증·즐겨찾기</td><td data-label="판정"><span class="status verify">구현·검증 제한</span></td><td data-label="확인된 사실">이메일 인증 API와 세션 기반 즐겨찾기 코드가 있습니다. SMTP·쓰기·브라우저 E2E는 이번 검증에서 제외했습니다.</td></tr>
-          <tr><td data-label="영역">LLM·CI·상용 배포</td><td data-label="판정"><span class="status planned">MVP 제외</span></td><td data-label="확인된 사실">LLM 설명, CI, WSGI, health·metrics는 최종 MVP 범위에 포함하지 않았습니다.</td></tr>
+          <tr><td data-label="사용자 기능">시장 대시보드</td><td data-label="쉽게 설명하면">여러 종목과 테마의 흐름을 한 화면에서 비교합니다.</td><td data-label="현재 결과"><span class="status connected">구현</span></td></tr>
+          <tr><td data-label="사용자 기능">종목 상세</td><td data-label="쉽게 설명하면">주가 차트, 뉴스 분위기, AI 분석 참고값을 함께 봅니다.</td><td data-label="현재 결과"><span class="status connected">구현</span></td></tr>
+          <tr><td data-label="사용자 기능">종목 검색</td><td data-label="쉽게 설명하면">회사명이나 종목코드로 원하는 종목을 찾습니다.</td><td data-label="현재 결과"><span class="status connected">구현</span></td></tr>
+          <tr><td data-label="사용자 기능">뉴스 요약·감성</td><td data-label="쉽게 설명하면">긴 뉴스의 핵심 내용과 긍정·부정 흐름을 빠르게 확인합니다.</td><td data-label="현재 결과"><span class="status connected">구현</span></td></tr>
+          <tr><td data-label="사용자 기능">방향·흐름 분석</td><td data-label="쉽게 설명하면">모델이 계산한 다음 흐름을 참고 정보로 확인합니다.</td><td data-label="현재 결과"><span class="status experiment">성능 검증 필요</span></td></tr>
         </tbody>
       </table></div>
     </section>
     <section class="section">
-      <h2>서비스 연결 구조</h2>
-      <div class="diagram"><pre>외부 데이터
-  → AI 자동화 파이프라인
-  → 공용 MySQL 13개 테이블
-  → Flask Repository / API
-  → 대시보드·종목 상세·검색·AI 분석 카드</pre></div>
-      <p>AI 저장소와 Web 저장소는 서로를 HTTP로 직접 호출하지 않습니다. DB 스키마가 두 저장소 사이의 데이터 계약입니다.</p>
+      <h2>3주 2일 동안 만든 결과</h2>
+      <div class="metric-row">
+        <div class="metric"><strong>100종목</strong><span>20개 테마 기준 수집·분석 대상</span></div>
+        <div class="metric"><strong>자동화 파이프라인</strong><span>수집부터 분석 결과 저장까지 연결</span></div>
+        <div class="metric"><strong>5개 화면·9개 API</strong><span>저장된 데이터를 웹에서 활용</span></div>
+        <div class="metric"><strong>검증 근거 확보</strong><span>테스트, DB 점검, Linux 실행 로그</span></div>
+      </div>
+      <div class="callout"><p><strong>팀 프로젝트의 핵심 성과:</strong> 짧은 기간 안에 데이터를 모으는 기능, AI로 분석하는 기능, 사용자가 결과를 보는 웹 서비스를 하나의 흐름으로 연결했습니다.</p></div>
     </section>
     <section class="section">
-      <h2>발표에서 지켜야 할 해석</h2>
+      <h2>발표에서 바로 사용할 소개 문장</h2>
+      <p class="quote">“PILOS는 여러 곳에 흩어진 주가와 뉴스를 자동으로 모으고, 뉴스의 핵심 내용과 분위기를 AI로 분석해 한 화면에서 보여주는 서비스입니다. 우리 팀은 3주 2일 동안 데이터 수집부터 분석, 데이터베이스 저장, 웹 조회까지 이어지는 전체 흐름을 구현했습니다.”</p>
+      <p><a href="presentation_guide.html"><strong>발표 준비 가이드에서 슬라이드 순서와 발표 문장을 확인하기 →</strong></a></p>
+    </section>
+    <section class="section">
+      <h2>시연은 이 순서로 보면 됩니다</h2>
+      <ol class="gate-list">
+        <li><strong>대시보드</strong><br>종목과 테마 정보를 한눈에 확인</li>
+        <li><strong>종목 상세</strong><br>주가 차트와 뉴스 분위기 확인</li>
+        <li><strong>AI 분석 카드</strong><br>방향·흐름과 긍정·부정 뉴스 확인</li>
+        <li><strong>검색</strong><br>회사명으로 원하는 종목 찾기</li>
+      </ol>
+    </section>
+    <section class="section">
+      <h2>솔직하게 구분할 한계</h2>
       <div class="two-col">
-        <div class="callout"><h3>말할 수 있는 성과</h3><p>제한된 기간 안에 실제 DB를 경유하는 수집·분석·조회 vertical slice를 구성하고 테스트와 서버 로그로 동작 근거를 남겼습니다.</p></div>
-        <div class="callout warning"><h3>구분해야 하는 한계</h3><p>파이프라인 SUCCESS는 모든 레코드 성공이나 예측 정확도를 뜻하지 않습니다. 모델의 실행 가능성과 예측 품질은 별도 지표입니다.</p></div>
+        <div class="callout warning"><h3>예측 결과는 참고값입니다</h3><p>모델이 실행되고 결과가 저장되는 과정은 구현했지만, 높은 예측 정확도나 수익성을 증명한 것은 아닙니다.</p></div>
+        <div class="callout warning"><h3>모든 기능을 상용 수준으로 검증한 것은 아닙니다</h3><p>주요 조회 화면은 확인했지만 이메일 전송, 데이터 쓰기, 실제 브라우저 전체 흐름은 검증 범위가 제한됐습니다.</p></div>
       </div>
     </section>
-    <p class="footer-note">KDT 1차 팀 프로젝트의 교육용 최종 MVP 기록입니다. 투자 판단이나 상용 운영 준비 완료를 의미하지 않습니다.</p>
+    <section class="section">
+      <h2>더 자세히 보고 싶다면</h2>
+      <div class="summary-grid">
+        <div class="summary-item"><strong><a href="architecture.html">서비스가 연결되는 구조</a></strong><span>수집부터 웹 화면까지의 전체 흐름</span></div>
+        <div class="summary-item"><strong><a href="verification.html">실제로 동작한 근거</a></strong><span>테스트, 데이터베이스 점검, 서버 실행 로그</span></div>
+        <div class="summary-item"><strong><a href="research_direction.html">모델 결과와 한계</a></strong><span>예측 성능을 과장하지 않는 평가 내용</span></div>
+      </div>
+    </section>
+    <p class="footer-note">교육용 프로젝트이며 투자 판단이나 수익을 보장하는 서비스가 아닙니다.</p>
   </main>
 </div>
 <script src="assets/script.js"></script>
