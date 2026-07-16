@@ -1,2 +1,60 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MVP 범위 | PILOS Blueprint Ver1</title><link rel="stylesheet" href="assets/style.css"></head><body><a class="skip-link" href="#main">본문으로 건너뛰기</a><div class="shell"><aside class="sidebar"><div class="brand"><p class="brand-title">PILOS Blueprint Ver1</p><p class="brand-subtitle">Snapshot: 2026-07-10</p></div><button class="menu-toggle" type="button" aria-controls="doc-nav" aria-expanded="false">문서 메뉴 열기/닫기</button><nav id="doc-nav" class="nav" aria-label="문서 메뉴"><a href="index.html">프로젝트 소개 · 구현 현황</a><a href="architecture.html">As-Is / Target 아키텍처</a><a href="mvp_scope.html">MVP 범위</a><a href="model_pipeline.html">데이터·모델 파이프라인</a><a href="database.html">DB 계약</a><a href="api.html">API 계약</a><a href="research_direction.html">연구 결과</a><a href="requirements.html">요구사항·수용 기준</a><a href="schedule.html">일정·게이트</a><a href="github_strategy.html">GitHub·릴리스 전략</a><a href="llm.html">LLM 설명 계획</a><a href="future_plan.html">향후 확장</a><a href="project_rules.html">프로젝트 규칙</a></nav></aside><main id="main" class="content"><header class="page-header"><p class="eyebrow">MVP scope</p><h1>수집 자산 범위와 통합 MVP 범위를 분리합니다</h1><p class="lead">20개 테마 수집 코드가 있다는 사실은 20개 테마 서비스가 종단간 완성됐다는 뜻이 아닙니다. 작은 파일럿으로 재현 가능한 흐름을 먼저 증명합니다.</p><div class="snapshot">Blueprint Ver1 · Snapshot: 2026-07-10 · 정적 소스 검토 기준</div></header><section class="section"><h2>세 가지 범위</h2><div class="summary-grid"><div class="summary-item"><strong>Pilot scope</strong><span>게임 테마 5종목: 크래프톤·넷마블·엔씨소프트·펄어비스·시프트업</span></div><div class="summary-item"><strong>Collector asset scope</strong><span>20개 테마의 주가·뉴스·본문 CSV 수집 코드</span></div><div class="summary-item"><strong>Integrated MVP scope</strong><span>작은 파일럿의 수집 → 적재 → 분석 → 조회 → UI E2E 검증</span></div></div></section><section class="section"><h2>통합 게이트</h2><div class="table-wrap status-matrix"><table><thead><tr><th>Gate</th><th>현재 상태</th><th>완료 기준</th></tr></thead><tbody>
-<tr><td data-label="Gate">수집 코드</td><td data-label="현재 상태"><span class="status offline">오프라인 구현</span></td><td data-label="완료 기준">공통 엔진·설정으로 fixture 수집 재현</td></tr><tr><td data-label="Gate">표준 정규화</td><td data-label="현재 상태"><span class="status planned">계획</span></td><td data-label="완료 기준">6자리 종목코드·날짜·URL·본문·가격 계약 검증</td></tr><tr><td data-label="Gate">idempotent DB 적재</td><td data-label="현재 상태"><span class="status planned">계획</span></td><td data-label="완료 기준">동일 입력 재실행 시 중복 없이 upsert</td></tr><tr><td data-label="Gate">요약 Job</td><td data-label="현재 상태"><span class="status offline">오프라인 구현</span> <span class="status verify">검증 필요</span></td><td data-label="완료 기준">revision 고정·실패 재시도·길이 계약</td></tr><tr><td data-label="Gate">감성 Job</td><td data-label="현재 상태"><span class="status offline">오프라인 구현</span></td><td data-label="완료 기준">summary revision 보존·통합 브랜치 확정</td></tr><tr><td data-label="Gate">예측 기준선</td><td data-label="현재 상태"><span class="status experiment">미달/미확정</span></td><td data-label="완료 기준">leakage-safe 시간 검증과 단순 기준선 초과</td></tr><tr><td data-label="Gate">prediction 저장</td><td data-label="현재 상태"><span class="status planned">계획</span></td><td data-label="완료 기준">모델·기준일·예측값·실제값 저장</td></tr><tr><td data-label="Gate">분석 API</td><td data-label="현재 상태"><span class="status planned">계획</span></td><td data-label="완료 기준">뉴스·감성·예측 계약 테스트</td></tr><tr><td data-label="Gate">주가표</td><td data-label="현재 상태"><span class="status connected">연동 완료</span></td><td data-label="완료 기준">feature 통합, 오류·빈 상태 강화</td></tr><tr><td data-label="Gate">사용자 E2E</td><td data-label="현재 상태"><span class="status planned">미완료</span></td><td data-label="완료 기준">fixture에서 실제 분석 UI까지 smoke test</td></tr></tbody></table></div></section><section class="section"><div class="callout warning"><h2>MVP에서 제외</h2><p>인증·개인화, 카테고리별 감성 모델, LLM/RAG, 자동 재학습은 핵심 structured pipeline이 신뢰 가능해진 뒤 진행합니다.</p></div></section></main></div><script src="assets/script.js"></script></body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>최종 MVP 범위 | PILOS Blueprint Ver1</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand"><p class="brand-title">PILOS Blueprint Ver1</p><p class="brand-subtitle">팀 프로젝트 최종 MVP 기술 문서</p></div>
+    <button class="menu-toggle" type="button" aria-controls="doc-nav" aria-expanded="false">문서 메뉴 열기/닫기</button>
+    <nav id="doc-nav" class="nav" aria-label="문서 메뉴"><a href="index.html">프로젝트 소개·구현 현황</a><a href="architecture.html">현재 아키텍처</a><a href="mvp_scope.html">최종 MVP 범위</a><a href="model_pipeline.html">데이터·모델 파이프라인</a><a href="database.html">DB 계약</a><a href="api.html">화면·API 계약</a><a href="verification.html">실행·검증 근거</a><a href="research_direction.html">모델 연구 결과</a><a href="requirements.html">최종 요구사항 판정</a><a href="schedule.html">최종 검증 게이트</a><a href="github_strategy.html">저장소·스냅샷 전략</a><a href="llm.html">LLM 제외 범위</a><a href="future_plan.html">후속 개선 후보</a><a href="project_rules.html">프로젝트 문서 규칙</a></nav>
+  </aside>
+  <main id="main" class="content">
+    <header class="page-header">
+      <p class="eyebrow">Scope decision</p>
+      <h1>구현된 vertical slice를 최종 교육용 MVP로 정의합니다</h1>
+      <p class="lead">완료, 제한적 완료, 제외를 분리해 발표 범위가 실제 구현보다 커지지 않도록 고정합니다.</p>
+      <div class="snapshot"><strong>Blueprint Ver1 · Snapshot: 2026-07-16</strong> · <code>pilos-ai d564315</code> · <code>pilos-web 6ddc75b</code></div>
+    </header>
+
+    <section class="section">
+      <h2>범위 판정</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>기능</th><th>판정</th><th>근거 또는 제한</th></tr></thead>
+        <tbody>
+          <tr><td>20개 테마·100개 종목 기준 데이터 수집</td><td><span class="status connected">포함</span></td><td>Linux 운영 로그와 DB 적재 구조 확인</td></tr>
+          <tr><td>멱등성 DB upsert·실행 이력</td><td><span class="status connected">포함</span></td><td>고유키 기반 upsert와 <code>pipeline_run</code> 기록</td></tr>
+          <tr><td>뉴스 추출 요약·금융 감성 분석</td><td><span class="status connected">포함</span></td><td>결과 저장까지 연결, 일부 레코드 실패는 별도 공개</td></tr>
+          <tr><td>Direction·RecentFlow 결과 저장</td><td><span class="status experiment">제한적 포함</span></td><td>기술 흐름은 구현됐으나 예측 품질은 성능 미검증</td></tr>
+          <tr><td>대시보드·종목 상세·검색·AI 카드</td><td><span class="status connected">포함</span></td><td>연결 DB 환경에서 주요 읽기 요청 검증</td></tr>
+          <tr><td>이메일 인증·즐겨찾기</td><td><span class="status verify">제한적 포함</span></td><td>구현 소스는 있으나 SMTP·쓰기·브라우저 E2E 미검증, 즐겨찾기는 세션 저장</td></tr>
+          <tr><td>LLM 설명·CI·상용 배포 기반</td><td><span class="status planned">제외</span></td><td>구현 근거가 없어 후속 후보로만 기록</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <section class="section">
+      <h2>MVP 수용 기준과 결과</h2>
+      <ol class="gate-list">
+        <li><strong>수집과 적재</strong><br>반복 실행 가능한 파이프라인과 DB 계약을 갖춘다. <span class="status connected">충족</span></li>
+        <li><strong>AI 분석 연결</strong><br>요약·감성 결과가 Web 조회 가능한 테이블까지 이어진다. <span class="status connected">충족</span></li>
+        <li><strong>예측 결과 전달</strong><br>Direction·RecentFlow를 저장하고 화면에서 참고값으로 제공한다. <span class="status experiment">기술 충족·성능 제한</span></li>
+        <li><strong>사용자 조회 경험</strong><br>주요 화면과 읽기 API가 연결 DB에서 응답한다. <span class="status connected">충족</span></li>
+        <li><strong>근거 보존</strong><br>테스트, DB 스키마, Linux 실행 로그로 결과를 재검토할 수 있다. <span class="status connected">충족</span></li>
+      </ol>
+    </section>
+    <section class="section">
+      <h2>최종 결과의 의미</h2>
+      <div class="callout"><p>이 MVP의 핵심 성과는 높은 투자 수익률을 증명하는 것이 아니라, 데이터 수집에서 AI 처리와 웹 조회까지 이어지는 서비스 구조를 짧은 기간 안에 구현한 것입니다.</p></div>
+      <div class="callout warning"><p>“예측 모델이 동작한다”와 “예측 모델이 유효하다”는 같은 말이 아닙니다. 화면의 수치는 교육·분석 참고값이며 투자 추천으로 표현하지 않습니다.</p></div>
+    </section>
+    <p class="footer-note">KDT 1차 팀 프로젝트의 교육용 최종 MVP 기록입니다. 투자 판단이나 상용 운영 준비 완료를 의미하지 않습니다.</p>
+  </main>
+</div>
+<script src="assets/script.js"></script>
+</body>
+</html>

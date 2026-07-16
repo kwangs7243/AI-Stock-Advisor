@@ -1,11 +1,80 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>아키텍처 | PILOS Blueprint Ver1</title><link rel="stylesheet" href="assets/style.css"></head><body><a class="skip-link" href="#main">본문으로 건너뛰기</a><div class="shell"><aside class="sidebar"><div class="brand"><p class="brand-title">PILOS Blueprint Ver1</p><p class="brand-subtitle">Snapshot: 2026-07-10</p></div><button class="menu-toggle" type="button" aria-controls="doc-nav" aria-expanded="false">문서 메뉴 열기/닫기</button><nav id="doc-nav" class="nav" aria-label="문서 메뉴"><a href="index.html">프로젝트 소개 · 구현 현황</a><a href="architecture.html">As-Is / Target 아키텍처</a><a href="mvp_scope.html">MVP 범위</a><a href="model_pipeline.html">데이터·모델 파이프라인</a><a href="database.html">DB 계약</a><a href="api.html">API 계약</a><a href="research_direction.html">연구 결과</a><a href="requirements.html">요구사항·수용 기준</a><a href="schedule.html">일정·게이트</a><a href="github_strategy.html">GitHub·릴리스 전략</a><a href="llm.html">LLM 설명 계획</a><a href="future_plan.html">향후 확장</a><a href="project_rules.html">프로젝트 규칙</a></nav></aside><main id="main" class="content"><header class="page-header"><p class="eyebrow">Architecture</p><h1>As-Is와 Target을 분리한 통합 구조</h1><p class="lead">AI와 Web은 서로 HTTP 통신하지 않고 현재 같은 MySQL을 직접 바라봅니다. 실선은 연결된 흐름, 점선 설명은 미구현 연결부입니다.</p><div class="snapshot">Blueprint Ver1 · Snapshot: 2026-07-10 · 정적 소스 검토 기준</div></header><section class="section"><h2>As-Is — 관찰된 현재 구조</h2><div class="diagram as-is"><pre><code>20개 테마 수집기 → CSV
-                       ┊ 미구현: normalize / DB upsert
-공유 MySQL → stock + stock_price → GET /api/stockTable → 날짜별 정렬 표  [연동 완료]
-     └→ news → KoBERT 추출요약 → news_summary → KR-FinBERT → sentiment [오프라인 구현]
-                                                                    ┊ 미서빙
-Prediction R&amp;D ───────────────────────────────────────────────────┊→ Web 분석 UI
-LLM 설명 [계획] ───────────────────────────────────────────────────┘</code></pre></div><div class="legend"><span class="status connected">주가표 연동 완료</span><span class="status offline">분석 배치 소스</span><span class="status experiment">예측 R&amp;D</span><span class="status planned">누락 연결부</span></div></section><section class="section"><h2>Target — 모두 계획 상태</h2><div class="diagram target"><pre><code>공통 수집 엔진 + 테마 설정
-→ 표준화·검증 → idempotent ingestion → canonical MySQL + migration
-→ versioned summary → versioned sentiment → 검증된 prediction persistence
-→ 뉴스·감성·예측 Read API → 실제 분석 UI → 구조화 결과 기반 LLM 설명
-↘ Job 상태·재시도·로그·metric·contract test·CI·health check</code></pre></div><p>Target은 목표 구조이며 완료 기능을 뜻하지 않습니다. 모델·데이터·스키마·API 버전을 함께 묶고 각 연결부를 contract test로 확인해야 합니다.</p></section><section class="section"><h2>핵심 경계</h2><div class="summary-grid"><div class="summary-item"><strong>수집 → DB</strong><span class="status planned">계획</span><span>CSV 정규화와 중복 안전 upsert orchestration이 없습니다.</span></div><div class="summary-item"><strong>분석 → 예측</strong><span class="status experiment">실험 브랜치</span><span>특정 요약·감성 revision을 고정한 production Job이 없습니다.</span></div><div class="summary-item"><strong>분석 → 사용자</strong><span class="status planned">계획</span><span>뉴스·감성·예측 API와 실제 분석 화면이 없습니다.</span></div></div></section></main></div><script src="assets/script.js"></script></body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>현재 아키텍처 | PILOS Blueprint Ver1</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand"><p class="brand-title">PILOS Blueprint Ver1</p><p class="brand-subtitle">팀 프로젝트 최종 MVP 기술 문서</p></div>
+    <button class="menu-toggle" type="button" aria-controls="doc-nav" aria-expanded="false">문서 메뉴 열기/닫기</button>
+    <nav id="doc-nav" class="nav" aria-label="문서 메뉴"><a href="index.html">프로젝트 소개·구현 현황</a><a href="architecture.html">현재 아키텍처</a><a href="mvp_scope.html">최종 MVP 범위</a><a href="model_pipeline.html">데이터·모델 파이프라인</a><a href="database.html">DB 계약</a><a href="api.html">화면·API 계약</a><a href="verification.html">실행·검증 근거</a><a href="research_direction.html">모델 연구 결과</a><a href="requirements.html">최종 요구사항 판정</a><a href="schedule.html">최종 검증 게이트</a><a href="github_strategy.html">저장소·스냅샷 전략</a><a href="llm.html">LLM 제외 범위</a><a href="future_plan.html">후속 개선 후보</a><a href="project_rules.html">프로젝트 문서 규칙</a></nav>
+  </aside>
+  <main id="main" class="content">
+    <header class="page-header">
+      <p class="eyebrow">System architecture</p>
+      <h1>AI 파이프라인과 Web 서비스가 공용 MySQL로 연결됩니다</h1>
+      <p class="lead">두 저장소의 책임을 분리하고 DB 스키마를 경계로 삼은 현재 구현 구조입니다.</p>
+      <div class="snapshot"><strong>Blueprint Ver1 · Snapshot: 2026-07-16</strong> · <code>pilos-ai d564315</code> · <code>pilos-web 6ddc75b</code></div>
+    </header>
+
+    <section class="section">
+      <h2>종단간 데이터 흐름</h2>
+      <div class="diagram"><pre>20개 테마 / 100개 종목
+        ↓
+주가·뉴스·본문 수집
+        ↓
+stock · stock_price · news
+        ↓
+SBERT 추출 요약 → news_summary
+        ↓
+일자·종목 그룹화 → KR-FinBERT 감성 → summary_analysis / map
+        ↓
+features 생성
+        ↓
+LogisticRegression Direction · RandomForest RecentFlow
+        ↓
+direction · recentflow
+        ↓
+공용 MySQL
+        ↓
+Flask Repository → 5개 화면 / 9개 JSON API</pre></div>
+    </section>
+    <section class="section">
+      <h2>저장소별 책임</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>계층</th><th>책임</th><th>주요 산출물</th></tr></thead>
+        <tbody>
+          <tr><td><code>pilos-ai</code></td><td>외부 데이터 수집, 정제, 요약·감성·피처·예측 처리, DB upsert, 실행 이력 기록</td><td><code>jobs/</code>, <code>models/</code>, <code>pipeline_run</code></td></tr>
+          <tr><td>공용 MySQL</td><td>AI 산출물과 Web 조회 사이의 영속 데이터 계약</td><td>13개 테이블, 112개 컬럼, 17개 물리 FK</td></tr>
+          <tr><td><code>pilos-web</code></td><td>Repository 조회, Flask 라우팅, 화면 렌더링, JSON 응답, 세션 기반 사용자 기능</td><td>5개 view route, 9개 JSON API</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <section class="section">
+      <h2>두 실행 모드</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>모드</th><th>구성</th><th>운영 스케줄</th></tr></thead>
+        <tbody>
+          <tr><td><code>LIVE_BRIEFING</code></td><td>주가·뉴스 수집, 요약, 감성, Web 조회용 최신 데이터 갱신</td><td>08·10·12·14·16·18·20·22시</td></tr>
+          <tr><td><code>DAILY_PREDICTION</code></td><td>LIVE 단계에 Features·Direction·RecentFlow 예측 저장을 더한 일일 실행</td><td>23:50</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <section class="section">
+      <h2>운영 경계와 외부 의존성</h2>
+      <div class="two-col">
+        <div class="callout"><h3>실행 제어</h3><p><code>pipeline_run</code>이 모드, 상태, 시작·종료 시각과 실행 메시지를 기록합니다. 중복 데이터는 upsert 계약으로 다룹니다.</p></div>
+        <div class="callout warning"><h3>외부 경계</h3><p>데이터 제공 사이트, Hugging Face 모델 파일, MySQL, SMTP는 외부 상태에 영향을 받습니다. Web은 AI 프로세스를 직접 실행하지 않습니다.</p></div>
+      </div>
+    </section>
+    <p class="footer-note">KDT 1차 팀 프로젝트의 교육용 최종 MVP 기록입니다. 투자 판단이나 상용 운영 준비 완료를 의미하지 않습니다.</p>
+  </main>
+</div>
+<script src="assets/script.js"></script>
+</body>
+</html>

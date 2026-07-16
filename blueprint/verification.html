@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>실행·검증 근거 | PILOS Blueprint Ver1</title><link rel="stylesheet" href="assets/style.css"></head>
+<body><a class="skip-link" href="#main">본문으로 건너뛰기</a><div class="shell"><aside class="sidebar"><div class="brand"><p class="brand-title">PILOS Blueprint Ver1</p><p class="brand-subtitle">팀 프로젝트 최종 MVP 기술 문서</p></div><button class="menu-toggle" type="button" aria-controls="doc-nav" aria-expanded="false">문서 메뉴 열기/닫기</button><nav id="doc-nav" class="nav" aria-label="문서 메뉴"><a href="index.html">프로젝트 소개·구현 현황</a><a href="architecture.html">현재 아키텍처</a><a href="mvp_scope.html">최종 MVP 범위</a><a href="model_pipeline.html">데이터·모델 파이프라인</a><a href="database.html">DB 계약</a><a href="api.html">화면·API 계약</a><a href="verification.html">실행·검증 근거</a><a href="research_direction.html">모델 연구 결과</a><a href="requirements.html">최종 요구사항 판정</a><a href="schedule.html">최종 검증 게이트</a><a href="github_strategy.html">저장소·스냅샷 전략</a><a href="llm.html">LLM 제외 범위</a><a href="future_plan.html">후속 개선 후보</a><a href="project_rules.html">프로젝트 문서 규칙</a></nav></aside>
+<main id="main" class="content"><header class="page-header"><p class="eyebrow">Verification evidence</p><h1>테스트·DB 대조·Linux 실행 로그를 분리해 증거 수준을 기록합니다</h1><p class="lead">정적 소스 존재만으로 완료를 주장하지 않고, 무엇을 어느 환경에서 확인했는지와 남은 제한을 함께 보존합니다.</p><div class="snapshot"><strong>Blueprint Ver1 · Snapshot: 2026-07-16</strong> · <code>pilos-ai d564315</code> · <code>pilos-web 6ddc75b</code></div></header>
+
+<section class="section"><h2>검증 결과 요약</h2><div class="table-wrap"><table><thead><tr><th>대상</th><th>결과</th><th>검증 환경·의미</th></tr></thead><tbody>
+<tr><td>AI 테스트</td><td><span class="status connected">114 passed</span></td><td>DB 비의존 테스트. 모듈 계약과 핵심 로직 확인</td></tr>
+<tr><td>Web 테스트</td><td><span class="status connected">28 passed</span></td><td>DB 비의존 테스트. Repository·route·응답 계약 확인</td></tr>
+<tr><td>Web 읽기 스모크</td><td><span class="status connected">8 / 8 HTTP 200</span></td><td>연결 DB 환경의 Flask test client</td></tr>
+<tr><td>DB 스키마 대조</td><td><span class="status connected">DDL 불일치 0</span></td><td>운영 DB와 최신 SQL 스냅샷 비교</td></tr>
+<tr><td>Linux 파이프라인</td><td><span class="status connected">7 / 7 최종 SUCCESS</span></td><td>별도 Linux 서버에서 실행된 첨부 로그</td></tr>
+</tbody></table></div></section>
+<section class="section"><h2>첨부 Linux 실행 로그</h2><div class="table-wrap"><table><thead><tr><th>시작 시각</th><th>모드</th><th>단계</th><th>소요 시간</th><th>비고</th></tr></thead><tbody>
+<tr><td>2026-07-15 14:34:51</td><td>DAILY_PREDICTION</td><td>6 / 6</td><td>01:41:33</td><td>최종 SUCCESS, WARNING 포함</td></tr>
+<tr><td>2026-07-15 16:33:15</td><td>LIVE_BRIEFING</td><td>5 / 5</td><td>01:10:47</td><td>최종 SUCCESS</td></tr>
+<tr><td>2026-07-15 18:00:00</td><td>LIVE_BRIEFING</td><td>5 / 5</td><td>01:05:28</td><td>최종 SUCCESS</td></tr>
+<tr><td>2026-07-15 20:00:00</td><td>LIVE_BRIEFING</td><td>5 / 5</td><td>01:12:57</td><td>최종 SUCCESS</td></tr>
+<tr><td>2026-07-15 22:00:00</td><td>LIVE_BRIEFING</td><td>5 / 5</td><td>01:05:02</td><td>최종 SUCCESS</td></tr>
+<tr><td>2026-07-15 23:50:00</td><td>DAILY_PREDICTION</td><td>6 / 6</td><td>01:03:30</td><td>최종 SUCCESS</td></tr>
+<tr><td>2026-07-16 08:00:00</td><td>LIVE_BRIEFING</td><td>5 / 5</td><td>00:37:47</td><td>최종 SUCCESS</td></tr>
+</tbody></table></div></section>
+<section class="section"><h2>운영 결과의 세부 근거</h2><ul><li>2026-07-15 14:34 실행: Direction·RecentFlow 각 100종목 저장, Direction 분포 상승 3·하락 97.</li><li>2026-07-15 23:50 실행: Features·Direction·RecentFlow 각 100종목 저장, Direction 분포 상승 1·하락 99.</li><li>13개 테이블, 112개 컬럼, 17개 물리 FK가 SQL·ERD와 일치.</li></ul></section>
+<section class="section"><h2>증거 해석의 한계</h2><div class="two-col"><div class="callout warning"><h3>SUCCESS의 범위</h3><p>최종 SUCCESS는 작업 오케스트레이션이 완료됐다는 뜻입니다. 레코드별 요약 실패, 데이터 결측, 모델 성능은 별도 확인 대상입니다.</p></div><div class="callout warning"><h3>코드 기준선 차이</h3><p>첨부 로그에는 정리 전 경로명 <code>Jobs/crwaling</code>이 나타납니다. 현재 main은 <code>jobs/crawling</code>으로 정리됐고 테스트는 통과했지만, 정리 후 동일 커밋의 Linux 전체 실행 로그는 이번 증거에 포함되지 않았습니다.</p></div></div><p>외부 SMTP, 쓰기 요청, 실제 브라우저 E2E, CI·상용 배포 검증도 이번 범위에 포함하지 않았습니다.</p></section>
+<p class="footer-note">KDT 1차 팀 프로젝트의 교육용 최종 MVP 기록입니다. 투자 판단이나 상용 운영 준비 완료를 의미하지 않습니다.</p></main></div><script src="assets/script.js"></script></body></html>
